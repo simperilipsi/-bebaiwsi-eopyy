@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="el">
 <head>
@@ -110,19 +109,33 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
 
     <div class="fsec">
       <h3>Στοιχεία Παιδιού</h3>
+      <div style="display:flex;gap:16px;align-items:center;margin-bottom:8px;">
+        <label style="display:flex;align-items:center;gap:5px;font-size:12px;cursor:pointer;font-weight:bold;">
+          <input type="radio" name="fylo" value="o" id="fyloO" checked onchange="updateFylo()"> ο (αγόρι)
+        </label>
+        <label style="display:flex;align-items:center;gap:5px;font-size:12px;cursor:pointer;font-weight:bold;">
+          <input type="radio" name="fylo" value="i" id="fyloI" onchange="updateFylo()"> η (κορίτσι)
+        </label>
+      </div>
       <div class="fg"><label>Επώνυμο Όνομα</label><input type="text" id="cName" oninput="this.value=this.value.toUpperCase()" placeholder="ΠΕΤΡΑΚΗΣ ΝΙΚΟΛΑΟΣ"></div>
       <div class="fg"><label>Πατρώνυμο</label><input type="text" id="cPatr" oninput="this.value=this.value.toUpperCase()" placeholder="ΓΕΩΡΓΙΟΥ"></div>
       <div class="fg"><label>ΑΜΚΑ</label><input type="text" id="cAmka" maxlength="11" placeholder="11 ψηφία"></div>
     </div>
 
     <div class="fsec">
-      <h3>Χρονικό Διάστημα & Έκδοση</h3>
+      <h3>Χρονικό Διάστημα</h3>
+      <div class="fg">
+        <label>Επικόλλησε το διάστημα από τη γνωμάτευση</label>
+        <input type="text" id="diastimaInput" placeholder="π.χ. 15/05/2026 έως 14/06/2026" oninput="parseDiastima(this.value)">
+      </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px">
         <div class="fg"><label>Από</label><input type="date" id="pFrom" onchange="onPeriodChange()"></div>
         <div class="fg"><label>Έως</label><input type="date" id="pTo" onchange="onPeriodToChange()"></div>
       </div>
       <div class="fg"><label>Ημερομηνία Έκδοσης</label><input type="date" id="issDate"></div>
     </div>
+
+
 
     <div class="fsec">
       <h3>Θεραπείες</h3>
@@ -348,7 +361,35 @@ function saveT(t){
   const l=getList(t), idx=l.findIndex(x=>x.name===n);
   const obj={name:n,lic:document.getElementById(t+'-lic').value,auth:document.getElementById(t+'-auth').value,ldate:document.getElementById(t+'-ldate').value};
   if(idx>=0)l[idx]=obj;else l.push(obj);
-  setList(t,l);refreshSel();alert('✅ Αποθηκεύτηκε: '+n);
+  setList(t,l);function parseDiastima(val) {
+  // Αναγνωρίζει μορφές: 15/05/2026 έως 14/06/2026 ή 15/05/2026-14/06/2026 ή 15/05/2026 - 14/06/2026
+  const clean = val.replace(/\s+/g, ' ').trim();
+  // Regex για ημερομηνία DD/MM/YYYY
+  const dateRegex = /(\d{1,2})[/\-.](\d{1,2})[/\-.](\d{4})/g;
+  const matches = [...clean.matchAll(dateRegex)];
+  if (matches.length >= 2) {
+    const [, d1, m1, y1] = matches[0];
+    const [, d2, m2, y2] = matches[1];
+    const from = `${y1}-${m1.padStart(2,'0')}-${d1.padStart(2,'0')}`;
+    const to = `${y2}-${m2.padStart(2,'0')}-${d2.padStart(2,'0')}`;
+    document.getElementById('pFrom').value = from;
+    document.getElementById('pTo').value = to;
+    document.getElementById('issDate').value = to;
+    onPeriodChange();
+  }
+}
+
+function updateFylo() {
+  // Ενημερώνει το έντυπο αν έχει ήδη δημιουργηθεί
+  const doc = document.getElementById('doc');
+  if (doc.querySelector('.doc-intro')) generate();
+}
+
+function getFylo() {
+  return document.querySelector('input[name="fylo"]:checked')?.value || 'o';
+}
+
+refreshSel();alert('✅ Αποθηκεύτηκε: '+n);
 }
 function loadT(t){
   const n=document.getElementById('sel-'+t).value;if(!n)return;
@@ -411,6 +452,29 @@ function toggleT(t){
   if(document.getElementById(map[t]).checked){f.classList.add('active');calcSessions(t);}
   else f.classList.remove('active');
 }
+function onFromChange(){
+  const from = document.getElementById('pFrom').value;
+  if(from){
+    // Σωστός υπολογισμός: ίδια μέρα επόμενου μήνα, μείον 1 ημέρα
+    // Π.χ. 25/05 → επόμενος μήνας ίδια μέρα = 25/06 → μείον 1 = 24/06
+    const d = new Date(from + 'T00:00:00');
+    const day = d.getDate();
+    const month = d.getMonth(); // 0-based
+    const year = d.getFullYear();
+    // Σωστός υπολογισμός: ίδια μέρα επόμενου μήνα, μείον 1 ημέρα
+    // Π.χ. 25/05 → 25/06 - 1 = 24/06 ✅
+    // Π.χ. 31/01 → 31/02 δεν υπάρχει, JS → 03/03 - 1 = 02/03 ✅
+    const nextMonth = month + 1 > 11 ? 0 : month + 1;
+    const nextYear = month + 1 > 11 ? year + 1 : year;
+    // Φτιάχνω ημερομηνία με ίδια μέρα στον επόμενο μήνα
+    const sameDayNextMonth = new Date(nextYear, nextMonth, day);
+    // Αφαιρώ 1 ημέρα για να πάρω "ίδια μέρα - 1"
+    const to = new Date(nextYear, nextMonth, day - 1);
+    document.getElementById('pTo').value = dk(to);
+    document.getElementById('issDate').value = dk(to);
+  }
+  onPeriodChange();
+}
 function onPeriodChange(){
   ['logo','ergo','psyho','eidiki'].forEach(t=>{
     const map={logo:'chkL',ergo:'chkE',psyho:'chkP',eidiki:'chkD'};
@@ -462,7 +526,7 @@ function getDocHTML(iss){
   return `
     <div class="doc-ada">ΑΔΑ: ${ADA}</div>
     <div class="doc-title">Έντυπο Βεβαίωσης Θεραπειών Ειδικής Αγωγής για τον Ε.Ο.Π.Υ.Υ.</div>
-    <div class="doc-intro">Βεβαιώνεται ότι ο/η <span>${name}</span>${patr?' του/της <span>'+patr+'</span>':''} με ΑΜΚΑ <span>${amka}</span> παρακολούθησε τις κάτωθι θεραπείες για το χρονικό διάστημα <span>${from}-${to}</span>.</div>
+    <div class="doc-intro">Βεβαιώνεται ότι ${getFylo()==='o'?'ο':'η'} <span>${name}</span>${patr?' του/της <span>'+patr+'</span>':''} με ΑΜΚΑ <span>${amka}</span> παρακολούθησε τις κάτωθι θεραπείες για το χρονικό διάστημα <span>${from}-${to}</span>.</div>
     ${makeBox('Λογοθεραπεία','logo',true)}
     ${makeBox('Εργοθεραπεία','ergo',true)}
     ${makeBox('Ψυχοθεραπεία','psyho',true)}
