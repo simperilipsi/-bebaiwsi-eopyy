@@ -442,14 +442,14 @@ function getDates(t){
 function makeBox(title,t,alwaysShow){
   const map={logo:'chkL',ergo:'chkE',psyho:'chkP',eidiki:'chkD'};
   const chk=document.getElementById(map[t]);
-  const emptyBox=`<div class="tbox"><div class="tbox-title">${title} :</div><div style="min-height:14px"></div><div style="margin-top:5px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid" style="margin-top:2px"><div></div><div><p>Αρ. άδειας άσκησης επαγγέλματος:</p><p>Αρμόδια εκδούσα αρχή:</p><p>Ημερομηνία:</p></div></div></div></div>`;
+  const emptyBox=`<div class="tbox"><div class="tbox-title">${title} :</div><div style="min-height:14px"></div><div style="margin-top:5px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid" style="margin-top:2px"><div></div><div><p>Αρ. άδειας άσκησης επαγγέλματος:</p><p>Αρμόδια εκδούσα αρχή:</p><p>Ημερομηνία:</p></div></div><div style="height:35px;"></div></div></div>`;
   if(!chk||!chk.checked)return alwaysShow?emptyBox:'';
   const n=document.getElementById(t+'-n').value;
   const lic=document.getElementById(t+'-lic').value;
   const auth=document.getElementById(t+'-auth').value;
   const ldate=fmtGR(document.getElementById(t+'-ldate').value);
   const dates=getDates(t).join(', ');
-  return `<div class="tbox"><div class="tbox-title">${title} :</div><div class="tbox-dates">${dates}</div><div style="margin-top:5px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid" style="margin-top:2px"><div><p>${n}</p></div><div><p>Αρ. άδειας άσκησης επαγγέλματος: ${lic}</p><p>Αρμόδια εκδούσα αρχή: ${auth}</p><p>Ημερομηνία: ${ldate}</p></div></div></div></div>`;
+  return `<div class="tbox"><div class="tbox-title">${title} :</div><div class="tbox-dates">${dates}</div><div style="margin-top:5px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid" style="margin-top:2px"><div><p>${n}</p></div><div><p>Αρ. άδειας άσκησης επαγγέλματος: ${lic}</p><p>Αρμόδια εκδούσα αρχή: ${auth}</p><p>Ημερομηνία: ${ldate}</p></div></div><div style="height:35px;"></div></div></div>`;
 }
 
 function getDocHTML(iss){
@@ -465,7 +465,7 @@ function getDocHTML(iss){
     ${makeBox('Λογοθεραπεία','logo',true)}
     ${makeBox('Εργοθεραπεία','ergo',true)}
     ${makeBox('Ψυχοθεραπεία','psyho',true)}
-    <div class="tbox"><div class="tbox-title">Ειδική διαπαιδαγώγηση:</div><div style="min-height:14px"></div><div style="margin-top:5px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid" style="margin-top:2px"><div></div><div><p>Αρ. άδειας άσκησης επαγγέλματος:</p><p>Αρμόδια εκδούσα αρχή:</p><p>Ημερομηνία:</p></div></div></div></div>
+    <div class="tbox"><div class="tbox-title">Ειδική διαπαιδαγώγηση:</div><div style="min-height:14px"></div><div style="margin-top:5px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid" style="margin-top:2px"><div></div><div><p>Αρ. άδειας άσκησης επαγγέλματος:</p><p>Αρμόδια εκδούσα αρχή:</p><p>Ημερομηνία:</p></div></div><div style="height:35px;"></div></div></div>
     <div class="doc-footer">
       <div style="font-style:italic;">Οι ως άνω συνεδρίες πραγματοποιήθηκαν και βεβαιώνονται από την εκτελούσα τις θεραπείες.</div>
       <div class="doc-footer-row">
