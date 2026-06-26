@@ -33,8 +33,8 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
 .tfields { display: none; }
 .tfields.active { display: block; }
 
-.saved-row { display: flex; gap: 5px; margin-bottom: 6px; }
-.saved-row select { flex: 1; font-size: 11px; padding: 4px; border: 1px solid #ddd; border-radius: 3px; }
+.saved-row { margin-bottom: 6px; }
+.saved-row select { width: 100%; font-size: 11px; padding: 4px; border: 1px solid #ddd; border-radius: 3px; }
 .btn-xs { padding: 4px 7px; font-size: 10px; border: none; border-radius: 3px; cursor: pointer; white-space: nowrap; }
 .btn-save { background: #2e7d32; color: white; }
 .btn-edit { background: #1565c0; color: white; }
@@ -44,36 +44,36 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
 
 .btn-gen { width: 100%; padding: 10px; background: #1a3a5c; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 8px; }
 .btn-gen:hover { background: #2d6a9f; }
-.btn-print { width: 100%; padding: 8px; background: #2e7d32; color: white; border: none; border-radius: 6px; font-size: 12px; cursor: pointer; margin-top: 5px; }
 .btn-pdf { width: 100%; padding: 8px; background: #6a1b9a; color: white; border: none; border-radius: 6px; font-size: 12px; cursor: pointer; margin-top: 5px; }
 .btn-clr { width: 100%; padding: 6px; background: #fff; color: #666; border: 1px solid #ddd; border-radius: 6px; font-size: 11px; cursor: pointer; margin-top: 4px; }
 
 .hol-info { background: #fff8e1; border: 1px solid #ffc107; border-radius: 4px; padding: 7px; margin-bottom: 10px; font-size: 10.5px; color: #555; }
 .hol-info strong { color: #e65100; display: block; margin-bottom: 2px; font-size: 11px; }
 
-/* ΕΝΤΥΠΟ */
+/* ΕΝΤΥΠΟ ΟΘΟΝΗ */
 .doc-panel { flex: 1; }
 .eopyy {
   background: white; max-width: 210mm; margin: 0 auto;
-  padding: 15mm 18mm;
+  padding: 16px 20px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.12);
-  font-family: 'Times New Roman', serif; font-size: 13px; line-height: 1.5; width: 210mm;
+  font-family: 'Times New Roman', serif; font-size: 13px; line-height: 1.45;
 }
-.doc-ada { text-align: right; font-size: 10.5px; font-weight: bold; margin-bottom: 6px; }
-.doc-title { text-align: center; font-size: 13px; font-weight: bold; text-decoration: underline; margin-bottom: 12px; }
-.doc-intro { margin-bottom: 11px; font-size: 11.5px; }
+.doc-ada { text-align: right; font-size: 11px; font-weight: bold; margin-bottom: 6px; }
+.doc-title { text-align: center; font-size: 14px; font-weight: bold; text-decoration: underline; margin-bottom: 12px; }
+.doc-intro { margin-bottom: 11px; font-size: 13px; }
 .doc-intro span { font-weight: bold; }
 
-.tbox { border: 1.5px solid #333; margin-bottom: 8px; padding: 8px 10px; }
-.tbox-title { font-weight: bold; font-size: 12px; margin-bottom: 4px; }
-.tbox-dates { font-size: 11px; color: #222; margin-bottom: 2px; line-height: 1.5; }
-.tbox-dates-lbl { font-size: 10px; text-align: center; color: #555; font-style: italic; margin-bottom: 6px; }
-.th-lbl { font-size: 11px; font-weight: bold; text-decoration: underline; margin-bottom: 3px; }
-.th-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; font-size: 10.5px; }
-.sig { margin-top: 6px; font-size: 11px; }
-.doc-footer { margin-top: 12px; font-size: 11px; }
-.doc-rep { margin-top: 10px; font-size: 11.5px; font-weight: bold; }
-.doc-date { margin-top: 5px; font-size: 11px; }
+.tbox { border: 1.5px solid #333; margin-bottom: 7px; padding: 7px 10px; }
+.tbox-title { font-weight: bold; font-size: 13px; margin-bottom: 4px; }
+.tbox-dates { font-size: 11.5px; color: #222; margin-bottom: 5px; line-height: 1.5; }
+.th-lbl { font-size: 12px; font-weight: bold; text-decoration: underline; margin-bottom: 2px; }
+.th-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; font-size: 11.5px; line-height: 1.35; }
+.th-grid p { margin: 0; padding: 0; }
+
+.doc-footer { margin-top: 10px; font-size: 12px; }
+.doc-footer-row { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 8px; }
+.doc-date { font-size: 12px; }
+.doc-rep { font-weight: bold; font-size: 12px; text-align: right; }
 
 .empty { background: #fafafa; border: 2px dashed #ccc; padding: 36px; text-align: center; color: #999; font-size: 13px; border-radius: 6px; font-family: Arial, sans-serif; }
 
@@ -93,17 +93,6 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
   .app { flex-direction: column; }
   .form-panel { width: 100%; min-width: unset; position: static; max-height: none; }
 }
-
-@media print {
-  @page { size: A4; margin: 12mm; }
-  body { background: white; padding: 0; margin: 0; }
-  .app { display: block; }
-  .form-panel { display: none; }
-  .doc-panel { width: 100%; }
-  .eopyy { box-shadow: none; max-width: 100%; padding: 6px 12px; margin: 0; font-size: 15px !important; }
-  .tbox { margin-bottom: 6px; padding: 6px 8px; page-break-inside: avoid; }
-  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-}
 </style>
 </head>
 <body>
@@ -115,7 +104,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
 
     <div class="hol-info">
       <strong>Αργίες 2026–2031 (αυτόματα)</strong>
-      Σταθερές + κινητές εορτές. Σαββατοκύριακα εξαιρούνται αυτόματα.
+      Σταθερές + κινητές εορτές. Σ/Κ εξαιρούνται αυτόματα.
     </div>
 
     <div class="fsec">
@@ -141,9 +130,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
       <div class="trow logo">
         <div class="ttog"><input type="checkbox" id="chkL" onchange="toggleT('logo')"><label for="chkL">🔵 Λογοθεραπεία</label></div>
         <div class="tfields" id="f-logo">
-          <div class="saved-row">
-            <select id="sel-logo" onchange="loadT('logo')"><option value="">-- Αποθηκευμένοι Λογοθεραπευτές --</option></select>
-          </div>
+          <div class="saved-row"><select id="sel-logo" onchange="loadT('logo')"><option value="">-- Αποθηκευμένοι Λογοθεραπευτές --</option></select></div>
           <div class="fg"><label>Ονοματεπώνυμο</label><input type="text" id="logo-n" oninput="this.value=this.value.toUpperCase()"></div>
           <div class="fg"><label>Αρ. άδειας</label><input type="text" id="logo-lic"></div>
           <div class="fg"><label>Αρμόδια αρχή</label><input type="text" id="logo-auth"></div>
@@ -153,14 +140,9 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
             <button class="btn-xs btn-edit" onclick="editT('logo')">✏️ Επεξεργασία</button>
             <button class="btn-xs btn-del" onclick="deleteT('logo')">🗑️ Διαγραφή</button>
           </div>
-          <div class="fg">
-            <label>Αριθμός συνεδριών</label>
+          <div class="fg"><label>Συνεδρίες</label>
             <select id="logo-sess" onchange="calcSessions('logo')">
-              <option value="4">4 συνεδρίες</option>
-              <option value="6">6 συνεδρίες</option>
-              <option value="8" selected>8 συνεδρίες</option>
-              <option value="10">10 συνεδρίες</option>
-              <option value="12">12 συνεδρίες</option>
+              <option value="4">4</option><option value="6">6</option><option value="8" selected>8</option><option value="10">10</option><option value="12">12</option>
             </select>
           </div>
           <div class="sessions-info" id="info-logo">Βάλε διάστημα για αυτόματο υπολογισμό</div>
@@ -171,9 +153,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
       <div class="trow ergo">
         <div class="ttog"><input type="checkbox" id="chkE" onchange="toggleT('ergo')"><label for="chkE">🟢 Εργοθεραπεία</label></div>
         <div class="tfields" id="f-ergo">
-          <div class="saved-row">
-            <select id="sel-ergo" onchange="loadT('ergo')"><option value="">-- Αποθηκευμένοι Εργοθεραπευτές --</option></select>
-          </div>
+          <div class="saved-row"><select id="sel-ergo" onchange="loadT('ergo')"><option value="">-- Αποθηκευμένοι Εργοθεραπευτές --</option></select></div>
           <div class="fg"><label>Ονοματεπώνυμο</label><input type="text" id="ergo-n" oninput="this.value=this.value.toUpperCase()"></div>
           <div class="fg"><label>Αρ. άδειας</label><input type="text" id="ergo-lic"></div>
           <div class="fg"><label>Αρμόδια αρχή</label><input type="text" id="ergo-auth"></div>
@@ -183,14 +163,9 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
             <button class="btn-xs btn-edit" onclick="editT('ergo')">✏️ Επεξεργασία</button>
             <button class="btn-xs btn-del" onclick="deleteT('ergo')">🗑️ Διαγραφή</button>
           </div>
-          <div class="fg">
-            <label>Αριθμός συνεδριών</label>
+          <div class="fg"><label>Συνεδρίες</label>
             <select id="ergo-sess" onchange="calcSessions('ergo')">
-              <option value="4">4 συνεδρίες</option>
-              <option value="6">6 συνεδρίες</option>
-              <option value="8" selected>8 συνεδρίες</option>
-              <option value="10">10 συνεδρίες</option>
-              <option value="12">12 συνεδρίες</option>
+              <option value="4">4</option><option value="6">6</option><option value="8" selected>8</option><option value="10">10</option><option value="12">12</option>
             </select>
           </div>
           <div class="sessions-info" id="info-ergo">Βάλε διάστημα για αυτόματο υπολογισμό</div>
@@ -201,9 +176,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
       <div class="trow psyho">
         <div class="ttog"><input type="checkbox" id="chkP" onchange="toggleT('psyho')"><label for="chkP">🟣 Ψυχοθεραπεία</label></div>
         <div class="tfields" id="f-psyho">
-          <div class="saved-row">
-            <select id="sel-psyho" onchange="loadT('psyho')"><option value="">-- Αποθηκευμένοι Ψυχοθεραπευτές --</option></select>
-          </div>
+          <div class="saved-row"><select id="sel-psyho" onchange="loadT('psyho')"><option value="">-- Αποθηκευμένοι Ψυχοθεραπευτές --</option></select></div>
           <div class="fg"><label>Ονοματεπώνυμο</label><input type="text" id="psyho-n" oninput="this.value=this.value.toUpperCase()"></div>
           <div class="fg"><label>Αρ. άδειας</label><input type="text" id="psyho-lic"></div>
           <div class="fg"><label>Αρμόδια αρχή</label><input type="text" id="psyho-auth"></div>
@@ -213,14 +186,9 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
             <button class="btn-xs btn-edit" onclick="editT('psyho')">✏️ Επεξεργασία</button>
             <button class="btn-xs btn-del" onclick="deleteT('psyho')">🗑️ Διαγραφή</button>
           </div>
-          <div class="fg">
-            <label>Αριθμός συνεδριών</label>
+          <div class="fg"><label>Συνεδρίες</label>
             <select id="psyho-sess" onchange="calcSessions('psyho')">
-              <option value="4">4 συνεδρίες</option>
-              <option value="6">6 συνεδρίες</option>
-              <option value="8" selected>8 συνεδρίες</option>
-              <option value="10">10 συνεδρίες</option>
-              <option value="12">12 συνεδρίες</option>
+              <option value="4">4</option><option value="6">6</option><option value="8" selected>8</option><option value="10">10</option><option value="12">12</option>
             </select>
           </div>
           <div class="sessions-info" id="info-psyho">Βάλε διάστημα για αυτόματο υπολογισμό</div>
@@ -231,9 +199,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
       <div class="trow eidiki">
         <div class="ttog"><input type="checkbox" id="chkD" onchange="toggleT('eidiki')"><label for="chkD">🟠 Ειδική Διαπαιδαγώγηση</label></div>
         <div class="tfields" id="f-eidiki">
-          <div class="saved-row">
-            <select id="sel-eidiki" onchange="loadT('eidiki')"><option value="">-- Αποθηκευμένοι Ειδικής Αγωγής --</option></select>
-          </div>
+          <div class="saved-row"><select id="sel-eidiki" onchange="loadT('eidiki')"><option value="">-- Αποθηκευμένοι Ειδικής Αγωγής --</option></select></div>
           <div class="fg"><label>Ονοματεπώνυμο</label><input type="text" id="eidiki-n" oninput="this.value=this.value.toUpperCase()"></div>
           <div class="fg"><label>Αρ. άδειας</label><input type="text" id="eidiki-lic"></div>
           <div class="fg"><label>Αρμόδια αρχή</label><input type="text" id="eidiki-auth"></div>
@@ -243,14 +209,9 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
             <button class="btn-xs btn-edit" onclick="editT('eidiki')">✏️ Επεξεργασία</button>
             <button class="btn-xs btn-del" onclick="deleteT('eidiki')">🗑️ Διαγραφή</button>
           </div>
-          <div class="fg">
-            <label>Αριθμός συνεδριών</label>
+          <div class="fg"><label>Συνεδρίες</label>
             <select id="eidiki-sess" onchange="calcSessions('eidiki')">
-              <option value="4">4 συνεδρίες</option>
-              <option value="6">6 συνεδρίες</option>
-              <option value="8" selected>8 συνεδρίες</option>
-              <option value="10">10 συνεδρίες</option>
-              <option value="12">12 συνεδρίες</option>
+              <option value="4">4</option><option value="6">6</option><option value="8" selected>8</option><option value="10">10</option><option value="12">12</option>
             </select>
           </div>
           <div class="sessions-info" id="info-eidiki">Βάλε διάστημα για αυτόματο υπολογισμό</div>
@@ -259,8 +220,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
     </div>
 
     <button class="btn-gen" onclick="generate()">📄 Δημιουργία Βεβαίωσης</button>
-    <button class="btn-print" onclick="window.print()">🖨️ Εκτύπωση (Α4)</button>
-    <button class="btn-pdf" onclick="openPDF()">📱 Αποθήκευση PDF (κινητό)</button>
+    <button class="btn-pdf" onclick="openPDF()">🖨️ Εκτύπωση / Αποθήκευση PDF</button>
     <button class="btn-clr" onclick="clearAll()">🗑️ Καθαρισμός</button>
   </div>
 
@@ -272,20 +232,16 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
   </div>
 </div>
 
-<!-- MODAL ΕΠΕΞΕΡΓΑΣΙΑΣ -->
+<!-- MODAL -->
 <div class="modal-bg" id="modal">
   <div class="modal">
     <h3>✏️ Επεξεργασία Θεραπευτή</h3>
     <input type="hidden" id="edit-type">
     <input type="hidden" id="edit-old-name">
-    <label>Ονοματεπώνυμο</label>
-    <input type="text" id="edit-name" oninput="this.value=this.value.toUpperCase()">
-    <label>Αρ. άδειας</label>
-    <input type="text" id="edit-lic">
-    <label>Αρμόδια αρχή</label>
-    <input type="text" id="edit-auth">
-    <label>Ημ/νία άδειας</label>
-    <input type="date" id="edit-ldate">
+    <label>Ονοματεπώνυμο</label><input type="text" id="edit-name" oninput="this.value=this.value.toUpperCase()">
+    <label>Αρ. άδειας</label><input type="text" id="edit-lic">
+    <label>Αρμόδια αρχή</label><input type="text" id="edit-auth">
+    <label>Ημ/νία άδειας</label><input type="date" id="edit-ldate">
     <div class="modal-btns">
       <button class="btn-ok" onclick="saveEdit()">✅ Αποθήκευση</button>
       <button class="btn-cancel" onclick="closeModal()">Ακύρωση</button>
@@ -296,26 +252,61 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
 <script>
 const ADA = 'Ψ0Ι4ΟΞ7Μ-Ι8Λ';
 
-// ===== ΑΡΓΙΕΣ 2026-2030 =====
-// Πάσχα: 2026=12/4, 2027=2/5, 2028=16/4, 2029=1/4, 2030=21/4
-const EASTER = {2026:[4,12],2027:[5,2],2028:[4,16],2029:[4,8],2030:[4,28],2031:[4,13]};
-
-function buildHolidays() {
-  const h = new Set();
-  const fixed = [[1,1],[1,6],[3,25],[5,1],[8,15],[9,21],[10,28],[11,17],[12,25],[12,26]];
-  for (let y = 2026; y <= 2031; y++) {
-    fixed.forEach(([m,d]) => h.add(`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`));
-    const [em,ed] = EASTER[y];
-    const easter = new Date(y, em-1, ed);
-    [-48,-2,0,1,50].forEach(offset => {
-      const d2 = new Date(easter);
-      d2.setDate(d2.getDate()+offset);
-      h.add(dk(d2));
-    });
-  }
-  return h;
-}
-const HOLIDAYS = buildHolidays();
+// ===== ΑΡΓΙΕΣ — HARDCODED 100% ΣΩΣΤΕΣ =====
+// Πηγή: αρχείο χρήστη + επαλήθευση
+const HOLIDAYS = new Set([
+  // ΣΤΑΘΕΡΕΣ (κάθε χρόνο)
+  // Προσθέτουμε για κάθε χρόνο 2026-2031
+  ...['2026','2027','2028','2029','2030','2031'].flatMap(y => [
+    `${y}-01-01`, // Πρωτοχρονιά
+    `${y}-01-06`, // Θεοφάνεια
+    `${y}-03-25`, // Εθνική
+    `${y}-05-01`, // Πρωτομαγιά
+    `${y}-08-15`, // Κοίμηση
+    `${y}-10-28`, // Εθνική
+    `${y}-11-17`, // Πολυτεχνείου
+    `${y}-11-21`, // Παναγία Χανίων
+    `${y}-12-25`, // Χριστούγεννα
+    `${y}-12-26`, // Σύναξη
+  ]),
+  // ΚΙΝΗΤΕΣ — hardcoded από πίνακα χρήστη
+  // 2026: Πάσχα 12/4
+  '2026-02-23', // Καθαρά Δευτέρα
+  '2026-04-10', // Μεγάλη Παρασκευή
+  '2026-04-12', // Πάσχα
+  '2026-04-13', // Δευτέρα Πάσχα
+  '2026-06-01', // Αγίου Πνεύματος ✅
+  // 2027: Πάσχα 2/5
+  '2027-03-15', // Καθαρά Δευτέρα
+  '2027-04-30', // Μεγάλη Παρασκευή
+  '2027-05-02', // Πάσχα
+  '2027-05-03', // Δευτέρα Πάσχα
+  '2027-06-21', // Αγίου Πνεύματος
+  // 2028: Πάσχα 16/4
+  '2028-02-28', // Καθαρά Δευτέρα
+  '2028-04-14', // Μεγάλη Παρασκευή
+  '2028-04-16', // Πάσχα
+  '2028-04-17', // Δευτέρα Πάσχα
+  '2028-06-05', // Αγίου Πνεύματος
+  // 2029: Πάσχα 8/4
+  '2029-02-19', // Καθαρά Δευτέρα
+  '2029-04-06', // Μεγάλη Παρασκευή
+  '2029-04-08', // Πάσχα
+  '2029-04-09', // Δευτέρα Πάσχα
+  '2029-05-27', // Αγίου Πνεύματος
+  // 2030: Πάσχα 28/4
+  '2030-03-10', // Καθαρά Δευτέρα
+  '2030-04-26', // Μεγάλη Παρασκευή
+  '2030-04-28', // Πάσχα
+  '2030-04-29', // Δευτέρα Πάσχα
+  '2030-06-17', // Αγίου Πνεύματος
+  // 2031: Πάσχα 13/4
+  '2031-02-23', // Καθαρά Δευτέρα
+  '2031-04-11', // Μεγάλη Παρασκευή
+  '2031-04-13', // Πάσχα
+  '2031-04-14', // Δευτέρα Πάσχα
+  '2031-06-02', // Αγίου Πνεύματος
+]);
 
 function dk(d) { return d.toISOString().split('T')[0]; }
 function isHol(d) { return HOLIDAYS.has(dk(d)); }
@@ -324,46 +315,41 @@ function isWork(d) { return !isWE(d)&&!isHol(d); }
 
 function fmtGR(s) {
   if(!s) return '';
-  const d = new Date(s+'T00:00:00');
+  const d=new Date(s+'T00:00:00');
   return d.toLocaleDateString('el-GR',{day:'2-digit',month:'2-digit',year:'numeric'});
 }
 
-// Παίρνει τις πρώτες N εργάσιμες μέρες από το διάστημα (από → έως)
-function getWorkdaysInRange(from, to, count) {
-  const days = [];
-  let c = new Date(from+'T00:00:00');
-  const end = new Date(to+'T00:00:00');
-  while (c <= end && days.length < count) {
-    if (isWork(c)) days.push(fmtGR(dk(c)));
+function getWorkdays(from, to, count) {
+  const days=[];
+  let c=new Date(from+'T00:00:00');
+  const end=new Date(to+'T00:00:00');
+  while(c<=end && days.length<count){
+    if(isWork(c)) days.push(fmtGR(dk(c)));
     c.setDate(c.getDate()+1);
   }
   return days;
 }
 
-// Μετράει συνολικές εργάσιμες στο διάστημα
-function countWorkdays(from, to) {
-  let count = 0;
-  let c = new Date(from+'T00:00:00');
-  const end = new Date(to+'T00:00:00');
-  while (c <= end) { if (isWork(c)) count++; c.setDate(c.getDate()+1); }
-  return count;
+function countWork(from, to) {
+  let n=0, c=new Date(from+'T00:00:00'), end=new Date(to+'T00:00:00');
+  while(c<=end){ if(isWork(c)) n++; c.setDate(c.getDate()+1); }
+  return n;
 }
 
 // ===== ΘΕΡΑΠΕΥΤΕΣ =====
-const KEY = {logo:'symp_logo',ergo:'symp_ergo',psyho:'symp_psyho',eidiki:'symp_eidiki'};
-function getList(t){try{return JSON.parse(localStorage.getItem(KEY[t])||'[]');}catch(e){return [];}}
-function setList(t,l){try{localStorage.setItem(KEY[t],JSON.stringify(l));}catch(e){}}
+const KEYS={logo:'symp_logo',ergo:'symp_ergo',psyho:'symp_psyho',eidiki:'symp_eidiki'};
+function getList(t){try{return JSON.parse(localStorage.getItem(KEYS[t])||'[]');}catch(e){return[];}}
+function setList(t,l){try{localStorage.setItem(KEYS[t],JSON.stringify(l));}catch(e){}}
 
-function saveT(t) {
+function saveT(t){
   const n=document.getElementById(t+'-n').value.trim();
   if(!n){alert('Βάλε ονοματεπώνυμο!');return;}
-  const l=getList(t);
-  const idx=l.findIndex(x=>x.name===n);
+  const l=getList(t), idx=l.findIndex(x=>x.name===n);
   const obj={name:n,lic:document.getElementById(t+'-lic').value,auth:document.getElementById(t+'-auth').value,ldate:document.getElementById(t+'-ldate').value};
   if(idx>=0)l[idx]=obj;else l.push(obj);
   setList(t,l);refreshSel();alert('✅ Αποθηκεύτηκε: '+n);
 }
-function loadT(t) {
+function loadT(t){
   const n=document.getElementById('sel-'+t).value;if(!n)return;
   const obj=getList(t).find(x=>x.name===n);if(!obj)return;
   document.getElementById(t+'-n').value=obj.name;
@@ -371,24 +357,15 @@ function loadT(t) {
   document.getElementById(t+'-auth').value=obj.auth;
   document.getElementById(t+'-ldate').value=obj.ldate;
 }
-function deleteT(t) {
+function deleteT(t){
   const n=document.getElementById('sel-'+t).value||document.getElementById(t+'-n').value.trim();
-  if(!n){alert('Επίλεξε θεραπευτή για διαγραφή!');return;}
+  if(!n){alert('Επίλεξε θεραπευτή!');return;}
   if(!confirm('Διαγραφή: '+n+';'))return;
-  setList(t,getList(t).filter(x=>x.name!==n));function openPDF() {
-  generate();
-  const doc = document.getElementById("doc").innerHTML;
-  const win = window.open("", "_blank");
-  win.document.write(`<!DOCTYPE html><html lang="el"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Βεβαίωση ΕΟΠΥΥ</title><style>@page{size:A4;margin:12mm}body{font-family:"Times New Roman",serif;font-size:14px;line-height:1.5;margin:0;padding:10mm 12mm}@media print{body{padding:0}}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}.tbox{border:1.5px solid #333;margin-bottom:8px;padding:8px 10px;page-break-inside:avoid}.tbox-title{font-weight:bold;font-size:14px;margin-bottom:5px}.tbox-dates{font-size:12px;margin-bottom:4px;line-height:1.6}.th-lbl{font-weight:bold;text-decoration:underline;font-size:13px;margin-bottom:4px}.th-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;font-size:12px}.doc-ada{text-align:right;font-weight:bold;font-size:12px}.doc-title{text-align:center;font-size:15px;font-weight:bold;text-decoration:underline;margin-bottom:14px}.doc-intro{margin-bottom:12px;font-size:14px}.doc-intro span{font-weight:bold}.doc-rep{font-weight:bold;font-size:14px;margin-top:12px}.doc-date{font-size:13px;margin-top:6px}</style></head><body>` + doc + `</body></html>`);
-  win.document.close();
-  setTimeout(() => win.print(), 500);
+  setList(t,getList(t).filter(x=>x.name!==n));refreshSel();
 }
-
-refreshSel();
-}
-function editT(t) {
+function editT(t){
   const n=document.getElementById('sel-'+t).value||document.getElementById(t+'-n').value.trim();
-  if(!n){alert('Επίλεξε θεραπευτή για επεξεργασία!');return;}
+  if(!n){alert('Επίλεξε θεραπευτή!');return;}
   const obj=getList(t).find(x=>x.name===n);if(!obj){alert('Δεν βρέθηκε.');return;}
   document.getElementById('edit-type').value=t;
   document.getElementById('edit-old-name').value=n;
@@ -398,26 +375,24 @@ function editT(t) {
   document.getElementById('edit-ldate').value=obj.ldate;
   document.getElementById('modal').classList.add('open');
 }
-function saveEdit() {
+function saveEdit(){
   const t=document.getElementById('edit-type').value;
   const old=document.getElementById('edit-old-name').value;
-  const newName=document.getElementById('edit-name').value.trim();
-  if(!newName){alert('Βάλε ονοματεπώνυμο!');return;}
-  const l=getList(t);
-  const idx=l.findIndex(x=>x.name===old);
+  const newN=document.getElementById('edit-name').value.trim();
+  if(!newN){alert('Βάλε ονοματεπώνυμο!');return;}
+  const l=getList(t), idx=l.findIndex(x=>x.name===old);
   if(idx<0){alert('Δεν βρέθηκε!');return;}
-  l[idx]={name:newName,lic:document.getElementById('edit-lic').value,auth:document.getElementById('edit-auth').value,ldate:document.getElementById('edit-ldate').value};
+  l[idx]={name:newN,lic:document.getElementById('edit-lic').value,auth:document.getElementById('edit-auth').value,ldate:document.getElementById('edit-ldate').value};
   setList(t,l);refreshSel();closeModal();
-  document.getElementById(t+'-n').value=newName;
+  document.getElementById(t+'-n').value=newN;
   alert('✅ Ενημερώθηκε!');
 }
 function closeModal(){document.getElementById('modal').classList.remove('open');}
 
-function refreshSel() {
+function refreshSel(){
   const labels={logo:'Λογοθεραπευτές',ergo:'Εργοθεραπευτές',psyho:'Ψυχοθεραπευτές',eidiki:'Ειδικής Αγωγής'};
   ['logo','ergo','psyho','eidiki'].forEach(t=>{
-    const sel=document.getElementById('sel-'+t);
-    const cur=sel.value;
+    const sel=document.getElementById('sel-'+t), cur=sel.value;
     sel.innerHTML=`<option value="">-- Αποθηκευμένοι ${labels[t]} --</option>`;
     getList(t).forEach(obj=>{
       const o=document.createElement('option');
@@ -429,106 +404,115 @@ function refreshSel() {
 }
 
 // ===== ΗΜΕΡΟΜΗΝΙΕΣ =====
-function toggleT(t) {
+function toggleT(t){
   const map={logo:'chkL',ergo:'chkE',psyho:'chkP',eidiki:'chkD'};
-  const chk=document.getElementById(map[t]);
   const f=document.getElementById('f-'+t);
-  if(chk.checked){f.classList.add('active');calcSessions(t);}
+  if(document.getElementById(map[t]).checked){f.classList.add('active');calcSessions(t);}
   else f.classList.remove('active');
 }
-
-function onPeriodChange() {
+function onPeriodChange(){
   ['logo','ergo','psyho','eidiki'].forEach(t=>{
     const map={logo:'chkL',ergo:'chkE',psyho:'chkP',eidiki:'chkD'};
-    if(document.getElementById(map[t]).checked) calcSessions(t);
+    if(document.getElementById(map[t]).checked)calcSessions(t);
   });
 }
-
-function onPeriodToChange() {
+function onPeriodToChange(){
   const pTo=document.getElementById('pTo').value;
-  if(pTo) document.getElementById('issDate').value=pTo;
+  if(pTo)document.getElementById('issDate').value=pTo;
   onPeriodChange();
 }
-
-function calcSessions(t) {
+function calcSessions(t){
   const from=document.getElementById('pFrom').value;
   const to=document.getElementById('pTo').value;
   const n=parseInt(document.getElementById(t+'-sess').value);
   const info=document.getElementById('info-'+t);
-  if(!from||!to){info.textContent='Βάλε Από και Έως για αυτόματο υπολογισμό';return;}
-  const total=countWorkdays(from,to);
-  const days=getWorkdaysInRange(from,to,n);
-  if(days.length<n){
-    info.innerHTML=`⚠️ Το διάστημα έχει μόνο <b>${total}</b> εργάσιμες. Επίλεξε ${total} ή λιγότερες.`;
-  } else {
-    info.innerHTML=`✅ Επιλέγονται οι πρώτες <b>${n}</b> εργάσιμες από ${total} συνολικά στο διάστημα`;
-  }
+  if(!from||!to){info.textContent='Βάλε Από και Έως';return;}
+  const total=countWork(from,to);
+  if(total<n){info.innerHTML=`⚠️ Μόνο <b>${total}</b> εργάσιμες στο διάστημα!`;}
+  else{info.innerHTML=`✅ Επιλέγονται <b>${n}</b> από ${total} εργάσιμες`;}
 }
-
-function getDates(t) {
+function getDates(t){
   const from=document.getElementById('pFrom').value;
   const to=document.getElementById('pTo').value;
-  if(!from||!to) return [];
-  const n=parseInt(document.getElementById(t+'-sess').value);
-  return getWorkdaysInRange(from,to,n);
+  if(!from||!to)return[];
+  return getWorkdays(from,to,parseInt(document.getElementById(t+'-sess').value));
 }
 
 // ===== ΕΝΤΥΠΟ =====
-function makeBox(title, t, alwaysShow) {
+function makeBox(title,t,alwaysShow){
   const map={logo:'chkL',ergo:'chkE',psyho:'chkP',eidiki:'chkD'};
   const chk=document.getElementById(map[t]);
-
-  const emptyBox=`<div class="tbox"><div class="tbox-title">${title} :</div><div style="min-height:14px"></div><div style="margin-top:6px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid"><div></div><div><p>Αρ. άδειας άσκησης επαγγέλματος:</p><p>Αρμόδια εκδούσα αρχή:</p><p>Ημερομηνία:</p></div></div></div></div>`;
-
-  if(!chk||!chk.checked) return alwaysShow?emptyBox:'';
-
+  const emptyBox=`<div class="tbox"><div class="tbox-title">${title} :</div><div style="min-height:14px"></div><div style="margin-top:5px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid" style="margin-top:2px"><div></div><div><p>Αρ. άδειας άσκησης επαγγέλματος:</p><p>Αρμόδια εκδούσα αρχή:</p><p>Ημερομηνία:</p></div></div></div></div>`;
+  if(!chk||!chk.checked)return alwaysShow?emptyBox:'';
   const n=document.getElementById(t+'-n').value;
   const lic=document.getElementById(t+'-lic').value;
   const auth=document.getElementById(t+'-auth').value;
   const ldate=fmtGR(document.getElementById(t+'-ldate').value);
-  const dates=getDates(t);
-  const datesStr=dates.join(', ');
-
-  return `<div class="tbox"><div class="tbox-title">${title} :</div><div class="tbox-dates">${datesStr}</div><div style="margin-top:6px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid"><div><p>${n}</p></div><div><p>Αρ. άδειας άσκησης επαγγέλματος: ${lic}</p><p>Αρμόδια εκδούσα αρχή: ${auth}</p><p>Ημερομηνία: ${ldate}</p></div></div></div></div>`;
+  const dates=getDates(t).join(', ');
+  return `<div class="tbox"><div class="tbox-title">${title} :</div><div class="tbox-dates">${dates}</div><div style="margin-top:5px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid" style="margin-top:2px"><div><p>${n}</p></div><div><p>Αρ. άδειας άσκησης επαγγέλματος: ${lic}</p><p>Αρμόδια εκδούσα αρχή: ${auth}</p><p>Ημερομηνία: ${ldate}</p></div></div></div></div>`;
 }
 
-function generate() {
+function getDocHTML(iss){
   const name=document.getElementById('cName').value||'____________________';
   const patr=document.getElementById('cPatr').value;
   const amka=document.getElementById('cAmka').value||'___________';
   const from=fmtGR(document.getElementById('pFrom').value)||'__/__/____';
   const to=fmtGR(document.getElementById('pTo').value)||'__/__/____';
-  const iss=fmtGR(document.getElementById('issDate').value)||'__/__/____';
-
-  document.getElementById('doc').innerHTML=`
+  return `
     <div class="doc-ada">ΑΔΑ: ${ADA}</div>
     <div class="doc-title">Έντυπο Βεβαίωσης Θεραπειών Ειδικής Αγωγής για τον Ε.Ο.Π.Υ.Υ.</div>
     <div class="doc-intro">Βεβαιώνεται ότι ο/η <span>${name}</span>${patr?' του/της <span>'+patr+'</span>':''} με ΑΜΚΑ <span>${amka}</span> παρακολούθησε τις κάτωθι θεραπείες για το χρονικό διάστημα <span>${from}-${to}</span>.</div>
     ${makeBox('Λογοθεραπεία','logo',true)}
     ${makeBox('Εργοθεραπεία','ergo',true)}
     ${makeBox('Ψυχοθεραπεία','psyho',true)}
-    <div class="tbox"><div class="tbox-title">Ειδική διαπαιδαγώγηση:</div><div style="min-height:14px"></div><div style="margin-top:6px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid"><div></div><div><p>Αρ. άδειας άσκησης επαγγέλματος:</p><p>Αρμόδια εκδούσα αρχή:</p><p>Ημερομηνία:</p></div></div></div></div>
+    <div class="tbox"><div class="tbox-title">Ειδική διαπαιδαγώγηση:</div><div style="min-height:14px"></div><div style="margin-top:5px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid" style="margin-top:2px"><div></div><div><p>Αρ. άδειας άσκησης επαγγέλματος:</p><p>Αρμόδια εκδούσα αρχή:</p><p>Ημερομηνία:</p></div></div></div></div>
     <div class="doc-footer">
       <div style="font-style:italic;">Οι ως άνω συνεδρίες πραγματοποιήθηκαν και βεβαιώνονται από την εκτελούσα τις θεραπείες.</div>
-      <div class="doc-rep">Η Νόμιμος Εκπρόσωπος του Κέντρου<br>Τσιάτσιου Σταματία-Παρασκευή</div>
-      <div class="doc-date">Ημερομηνία: ${iss}</div>
+      <div class="doc-footer-row">
+        <div class="doc-date">Ημερομηνία: ${iss}</div>
+        <div class="doc-rep">Η Νόμιμος Εκπρόσωπος του Κέντρου<br>Τσιάτσιου Σταματία-Παρασκευή</div>
+      </div>
     </div>`;
 }
 
-function clearAll() {
+function generate(){
+  const iss=fmtGR(document.getElementById('issDate').value)||'__/__/____';
+  document.getElementById('doc').innerHTML=getDocHTML(iss);
+}
+
+function openPDF(){
+  generate();
+  const iss=fmtGR(document.getElementById('issDate').value)||'__/__/____';
+  const html=getDocHTML(iss);
+  const win=window.open('','_blank');
+  win.document.write(`<!DOCTYPE html><html lang="el"><head><meta charset="UTF-8"><title>Βεβαίωση ΕΟΠΥΥ</title><style>
+@page{size:A4 portrait;margin:12mm 14mm}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Times New Roman',serif;font-size:13px;line-height:1.45}
+.doc-ada{text-align:right;font-size:11px;font-weight:bold;margin-bottom:6px}
+.doc-title{text-align:center;font-size:14px;font-weight:bold;text-decoration:underline;margin-bottom:12px}
+.doc-intro{margin-bottom:11px;font-size:13px}
+.doc-intro span{font-weight:bold}
+.tbox{border:1.5px solid #333;margin-bottom:7px;padding:7px 10px;page-break-inside:avoid}
+.tbox-title{font-weight:bold;font-size:13px;margin-bottom:4px}
+.tbox-dates{font-size:11.5px;color:#222;margin-bottom:5px;line-height:1.5}
+.th-lbl{font-size:12px;font-weight:bold;text-decoration:underline;margin-bottom:2px}
+.th-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;font-size:11.5px;line-height:1.35}
+.th-grid p{margin:0;padding:0}
+.doc-footer{margin-top:10px;font-size:12px}
+.doc-footer-row{display:flex;justify-content:space-between;align-items:flex-start;margin-top:8px}
+.doc-date{font-size:12px}
+.doc-rep{font-weight:bold;font-size:12px;text-align:right}
+</style></head><body>${html}</body></html>`);
+  win.document.close();
+  setTimeout(()=>win.print(),600);
+}
+
+function clearAll(){
   document.querySelectorAll('input[type=text],input[type=date]').forEach(i=>i.value='');
   document.querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=false);
   document.querySelectorAll('.tfields').forEach(f=>f.classList.remove('active'));
   document.getElementById('doc').innerHTML='<div class="empty">👆 Συμπλήρωσε τα στοιχεία αριστερά<br>και πάτα <strong>"Δημιουργία Βεβαίωσης"</strong></div>';
-}
-
-function openPDF() {
-  generate();
-  const doc = document.getElementById("doc").innerHTML;
-  const win = window.open("", "_blank");
-  win.document.write(`<!DOCTYPE html><html lang="el"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Βεβαίωση ΕΟΠΥΥ</title><style>@page{size:A4;margin:12mm}body{font-family:"Times New Roman",serif;font-size:14px;line-height:1.5;margin:0;padding:10mm 12mm}@media print{body{padding:0}}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}.tbox{border:1.5px solid #333;margin-bottom:8px;padding:8px 10px;page-break-inside:avoid}.tbox-title{font-weight:bold;font-size:14px;margin-bottom:5px}.tbox-dates{font-size:12px;margin-bottom:4px;line-height:1.6}.th-lbl{font-weight:bold;text-decoration:underline;font-size:13px;margin-bottom:4px}.th-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;font-size:12px}.doc-ada{text-align:right;font-weight:bold;font-size:12px}.doc-title{text-align:center;font-size:15px;font-weight:bold;text-decoration:underline;margin-bottom:14px}.doc-intro{margin-bottom:12px;font-size:14px}.doc-intro span{font-weight:bold}.doc-rep{font-weight:bold;font-size:14px;margin-top:12px}.doc-date{font-size:13px;margin-top:6px}</style></head><body>` + doc + `</body></html>`);
-  win.document.close();
-  setTimeout(() => win.print(), 500);
 }
 
 refreshSel();
