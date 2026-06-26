@@ -126,7 +126,10 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
       <h3>Χρονικό Διάστημα</h3>
       <div class="fg">
         <label>Επικόλλησε το διάστημα από τη γνωμάτευση</label>
-        <input type="text" id="diastimaInput" placeholder="π.χ. 15/05/2026 έως 14/06/2026" oninput="parseDiastima(this.value)" onpaste="setTimeout(()=>parseDiastima(this.value),50)">
+        <div style="display:flex;gap:6px;">
+          <input type="text" id="diastimaInput" placeholder="π.χ. 15/05/2026 έως 14/06/2026" oninput="parseDiastima(this.value)" onpaste="setTimeout(()=>parseDiastima(this.value),50)" style="flex:1;">
+          <button onclick="parseDiastima(document.getElementById('diastimaInput').value)" style="padding:5px 10px;background:#1a3a5c;color:white;border:none;border-radius:4px;font-size:12px;cursor:pointer;white-space:nowrap;">📥 Εφαρμογή</button>
+        </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px">
         <div class="fg"><label>Από</label><input type="date" id="pFrom" onchange="onPeriodChange()"></div>
