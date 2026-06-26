@@ -419,15 +419,17 @@ function onFromChange(){
     const day = d.getDate();
     const month = d.getMonth(); // 0-based
     const year = d.getFullYear();
-    // Βρες την ίδια μέρα στον επόμενο μήνα
+    // Σωστός υπολογισμός: ίδια μέρα επόμενου μήνα, μείον 1 ημέρα
+    // Π.χ. 25/05 → 25/06 - 1 = 24/06 ✅
+    // Π.χ. 31/01 → 31/02 δεν υπάρχει, JS → 03/03 - 1 = 02/03 ✅
     const nextMonth = month + 1 > 11 ? 0 : month + 1;
     const nextYear = month + 1 > 11 ? year + 1 : year;
-    // Φτιάξε ημερομηνία = ίδια μέρα, επόμενος μήνας
+    // Φτιάχνω ημερομηνία με ίδια μέρα στον επόμενο μήνα
     const sameDayNextMonth = new Date(nextYear, nextMonth, day);
-    // Αφαίρεσε 1 μέρα
-    sameDayNextMonth.setDate(sameDayNextMonth.getDate() - 1);
-    document.getElementById('pTo').value = dk(sameDayNextMonth);
-    document.getElementById('issDate').value = dk(sameDayNextMonth);
+    // Αφαιρώ 1 ημέρα για να πάρω "ίδια μέρα - 1"
+    const to = new Date(nextYear, nextMonth, day - 1);
+    document.getElementById('pTo').value = dk(to);
+    document.getElementById('issDate').value = dk(to);
   }
   onPeriodChange();
 }
