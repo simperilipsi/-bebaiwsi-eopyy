@@ -61,18 +61,18 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
 .doc-intro span { font-weight: bold; }
 .tbox { border: 1.5px solid #333; margin-bottom: 7px; padding: 7px 10px; }
 .tbox-title { font-weight: bold; font-size: 13px; margin-bottom: 4px; }
-.tbox-dates { font-size: 11.5px; color: #000; margin-bottom: 5px; line-height: 1.5; }
+.tbox-dates { font-size: 11.5px; color: #000 !important; margin-bottom: 5px; line-height: 1.5; }
 .th-lbl { font-size: 12px; font-weight: bold; text-decoration: underline; margin-bottom: 2px; }
 .th-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; font-size: 11.5px; line-height: 1.35; }
 .th-grid p { margin: 0; padding: 0; }
-.th-stamp { margin-top: 6px; min-height: 120px; }
-.th-stamp img { max-height: 140px; max-width: 380px; opacity: 0.9; }
+.th-stamp { margin-top: 6px; min-height: 280px; }
+.th-stamp img { max-height: 300px; max-width: 100%; opacity: 0.9; }
 .doc-footer { margin-top: 10px; font-size: 12px; }
 .doc-footer-row { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 8px; }
 .doc-date { font-size: 12px; }
 .doc-rep { font-weight: bold; font-size: 12px; text-align: right; }
 .doc-rep-stamp { margin-top: 6px; text-align: right; }
-.doc-rep-stamp img { max-height: 80px; max-width: 220px; opacity: 0.9; }
+.doc-rep-stamp img { max-height: 260px; max-width: 400px; opacity: 0.9; }
 .empty { background: #fafafa; border: 2px dashed #ccc; padding: 36px; text-align: center; color: #999; font-size: 13px; border-radius: 6px; font-family: Arial, sans-serif; }
 .modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center; }
 .modal-bg.open { display: flex; }
@@ -251,7 +251,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
 
 <script>
 const ADA = 'Ψ0Ι4ΟΞ7Μ-Ι8Λ';
-const BASE_IMG = 'https://raw.githubusercontent.com/simperilipsi/simperilipsi_tester/main/';
+const BASE_IMG = 'https://raw.githubusercontent.com/simperilipsi/-bebaiwsi-eopyy/main/';
 
 // ===== HARDCODED ΘΕΡΑΠΕΥΤΕΣ =====
 const PRESET_THERAPISTS = {
@@ -752,7 +752,7 @@ function makeBox(title, t, alwaysShow) {
   const dates = getDates(t).join(', ');
   const imgUrl = getTherapistImg(t);
   const stampHTML = imgUrl ? `<div class="th-stamp"><img src="${imgUrl}" alt="σφραγίδα"></div>` : `<div style="height:55px;"></div>`;
-  return `<div class="tbox"><div class="tbox-title">${title} :</div><div class="tbox-dates" style="color:#000">${dates}</div><div style="margin-top:5px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid" style="margin-top:2px"><div><p>${n}</p>${stampHTML}</div><div><p>Αρ. άδειας άσκησης επαγγέλματος: ${lic}</p><p>Αρμόδια εκδούσα αρχή: ${auth}</p><p>Ημερομηνία: ${ldate}</p></div></div></div></div>`;
+  return `<div class="tbox"><div class="tbox-title">${title} :</div><div class="tbox-dates">${dates}</div><div style="margin-top:5px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid" style="margin-top:2px"><div><p>${n}</p>${stampHTML}</div><div><p>Αρ. άδειας άσκησης επαγγέλματος: ${lic}</p><p>Αρμόδια εκδούσα αρχή: ${auth}</p><p>Ημερομηνία: ${ldate}</p></div></div></div></div>`;
 }
 
 function getDocHTML(iss) {
@@ -802,16 +802,16 @@ body{font-family:'Times New Roman',serif;font-size:13px;line-height:1.45}
 .doc-intro span{font-weight:bold}
 .tbox{border:1.5px solid #333;margin-bottom:7px;padding:7px 10px;page-break-inside:avoid}
 .tbox-title{font-weight:bold;font-size:13px;margin-bottom:4px}
-.tbox-dates{font-size:11.5px;color:#000;margin-bottom:5px;line-height:1.5}
+.tbox-dates{font-size:11.5px;color:#000!important;margin-bottom:5px;line-height:1.5}
 .th-lbl{font-size:12px;font-weight:bold;text-decoration:underline;margin-bottom:2px}
 .th-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;font-size:11.5px;line-height:1.35}
 .th-grid p{margin:0;padding:0}
-.th-stamp img{max-height:140px;max-width:380px;opacity:0.9}
+.th-stamp img{max-height:300px;max-width:100%;opacity:0.9}
 .doc-footer{margin-top:10px;font-size:12px}
 .doc-footer-row{display:flex;justify-content:space-between;align-items:flex-start;margin-top:8px}
 .doc-date{font-size:12px}
 .doc-rep{font-weight:bold;font-size:12px;text-align:right}
-.doc-rep-stamp img{max-height:80px;max-width:220px;opacity:0.9}
+.doc-rep-stamp img{max-height:260px;max-width:400px;opacity:0.9}
 </style></head><body>${html}</body></html>`);
   win.document.close();
   setTimeout(() => win.print(), 600);
