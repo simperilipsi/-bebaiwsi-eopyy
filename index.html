@@ -72,7 +72,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
 .doc-date { font-size: 12px; }
 .doc-rep { font-weight: bold; font-size: 12px; text-align: right; }
 .doc-rep-stamp { margin-top: 6px; text-align: right; }
-.doc-rep-stamp img { max-height: 780px; max-width: 100%; opacity: 0.9; }
+.doc-rep-stamp img { max-height: 150px; max-width: 280px; opacity: 0.9; }
 .empty { background: #fafafa; border: 2px dashed #ccc; padding: 36px; text-align: center; color: #999; font-size: 13px; border-radius: 6px; font-family: Arial, sans-serif; }
 .modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center; }
 .modal-bg.open { display: flex; }
@@ -743,7 +743,7 @@ function getTherapistImg(t) {
 function makeBox(title, t, alwaysShow) {
   const map = { logo:'chkL', ergo:'chkE', psyho:'chkP', eidiki:'chkD' };
   const chk = document.getElementById(map[t]);
-  const emptyBox = `<div class="tbox"><div class="tbox-title">${title} :</div><div style="min-height:14px"></div><div style="margin-top:5px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid" style="margin-top:2px"><div style="min-height:80px;"></div><div><p>Αρ. άδειας άσκησης επαγγέλματος:</p><p>Αρμόδια εκδούσα αρχή:</p><p>Ημερομηνία:</p></div></div></div></div>`;
+  const emptyBox = `<div class="tbox"><div class="tbox-title">${title} :</div><div style="min-height:14px"></div><div style="margin-top:5px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div style="margin-top:2px;font-size:11.5px"><p>Αρ. άδειας άσκησης επαγγέλματος:</p><p>Αρμόδια εκδούσα αρχή:</p><p>Ημερομηνία:</p></div></div></div>`;
   if (!chk || !chk.checked) return alwaysShow ? emptyBox : '';
   const n     = document.getElementById(t+'-n').value;
   const lic   = document.getElementById(t+'-lic').value;
@@ -811,7 +811,7 @@ body{font-family:'Times New Roman',serif;font-size:13px;line-height:1.45}
 .doc-footer-row{display:flex;justify-content:space-between;align-items:flex-start;margin-top:8px}
 .doc-date{font-size:12px}
 .doc-rep{font-weight:bold;font-size:12px;text-align:right}
-.doc-rep-stamp img{max-height:780px;max-width:100%;opacity:0.9}
+.doc-rep-stamp img{max-height:150px;max-width:280px;opacity:0.9}
 </style></head><body>${html}</body></html>`);
   win.document.close();
   setTimeout(() => win.print(), 600);
