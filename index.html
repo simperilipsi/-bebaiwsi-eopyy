@@ -65,8 +65,8 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
 .th-lbl { font-size: 12px; font-weight: bold; text-decoration: underline; margin-bottom: 2px; }
 .th-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; font-size: 11.5px; line-height: 1.35; }
 .th-grid p { margin: 0; padding: 0; }
-.th-stamp { margin-top: 4px; min-height: 100px; }
-.th-stamp img { max-height: 120px; max-width: 280px; opacity: 0.9; }
+.th-stamp { margin-top: 2px; min-height: 80px; }
+.th-stamp img { max-height: 85px; max-width: 240px; opacity: 0.9; }
 .doc-footer { margin-top: 10px; font-size: 12px; }
 .doc-footer-row { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 8px; }
 .doc-date { font-size: 12px; }
@@ -743,7 +743,7 @@ function getTherapistImg(t) {
 function makeBox(title, t, alwaysShow) {
   const map = { logo:'chkL', ergo:'chkE', psyho:'chkP', eidiki:'chkD' };
   const chk = document.getElementById(map[t]);
-  const emptyBox = `<div class="tbox"><div class="tbox-title">${title} :</div><div style="min-height:14px"></div><div style="margin-top:5px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid" style="margin-top:2px"><div></div><div><p>Αρ. άδειας άσκησης επαγγέλματος:</p><p>Αρμόδια εκδούσα αρχή:</p><p>Ημερομηνία:</p></div></div><div style="height:55px;"></div></div></div>`;
+  const emptyBox = `<div class="tbox"><div class="tbox-title">${title} :</div><div style="min-height:14px"></div><div style="margin-top:5px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid" style="margin-top:2px"><div style="min-height:80px;"></div><div><p>Αρ. άδειας άσκησης επαγγέλματος:</p><p>Αρμόδια εκδούσα αρχή:</p><p>Ημερομηνία:</p></div></div></div></div>`;
   if (!chk || !chk.checked) return alwaysShow ? emptyBox : '';
   const n     = document.getElementById(t+'-n').value;
   const lic   = document.getElementById(t+'-lic').value;
@@ -751,8 +751,8 @@ function makeBox(title, t, alwaysShow) {
   const ldate = fmtGRstr(document.getElementById(t+'-ldate').value);
   const dates = getDates(t).join(', ');
   const imgUrl = getTherapistImg(t);
-  const stampHTML = imgUrl ? `<div class="th-stamp"><img src="${imgUrl}" alt="σφραγίδα"></div>` : `<div style="height:55px;"></div>`;
-  return `<div class="tbox"><div class="tbox-title">${title} :</div><div class="tbox-dates">${dates}</div><div style="margin-top:5px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid" style="margin-top:2px"><div><p>${n}</p>${stampHTML}</div><div><p>Αρ. άδειας άσκησης επαγγέλματος: ${lic}</p><p>Αρμόδια εκδούσα αρχή: ${auth}</p><p>Ημερομηνία: ${ldate}</p></div></div></div></div>`;
+  const stampHTML = imgUrl ? `<div class="th-stamp"><img src="${imgUrl}" alt="σφραγίδα"></div>` : `<div style="min-height:80px;"></div>`;
+  return `<div class="tbox"><div class="tbox-title">${title} :</div><div class="tbox-dates">${dates}</div><div style="margin-top:5px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid" style="margin-top:2px"><div>${stampHTML}</div><div><p><strong>${n}</strong></p><p>Αρ. άδειας άσκησης επαγγέλματος: ${lic}</p><p>Αρμόδια εκδούσα αρχή: ${auth}</p><p>Ημερομηνία: ${ldate}</p></div></div></div></div>`;
 }
 
 function getDocHTML(iss) {
@@ -806,7 +806,7 @@ body{font-family:'Times New Roman',serif;font-size:13px;line-height:1.45}
 .th-lbl{font-size:12px;font-weight:bold;text-decoration:underline;margin-bottom:2px}
 .th-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;font-size:11.5px;line-height:1.35}
 .th-grid p{margin:0;padding:0}
-.th-stamp img{max-height:120px;max-width:280px;opacity:0.9}
+.th-stamp img{max-height:85px;max-width:240px;opacity:0.9}
 .doc-footer{margin-top:10px;font-size:12px}
 .doc-footer-row{display:flex;justify-content:space-between;align-items:flex-start;margin-top:8px}
 .doc-date{font-size:12px}
