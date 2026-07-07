@@ -88,9 +88,46 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
   .app { flex-direction: column; }
   .form-panel { width: 100%; min-width: unset; position: static; max-height: none; }
 }
+
+.pwd-overlay {
+  display: flex; position: fixed; inset: 0;
+  background: #b85c6e; z-index: 9999;
+  align-items: center; justify-content: center;
+}
+.pwd-box {
+  background: white; border-radius: 10px; padding: 32px;
+  text-align: center; min-width: 280px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.pwd-box h2 { color: #b85c6e; font-size: 16px; margin-bottom: 6px; }
+.pwd-box p { color: #666; font-size: 12px; margin-bottom: 16px; }
+.pwd-box input {
+  width: 100%; padding: 10px; border: 2px solid #ddd;
+  border-radius: 6px; font-size: 18px; text-align: center;
+  letter-spacing: 4px; margin-bottom: 10px;
+}
+.pwd-box input.error { border-color: #c62828; }
+.pwd-box button {
+  width: 100%; padding: 10px; background: #b85c6e;
+  color: white; border: none; border-radius: 6px;
+  font-size: 14px; cursor: pointer; font-weight: bold;
+}
+.pwd-error { color: #c62828; font-size: 11px; margin-top: 6px; display:none; }
 </style>
 </head>
 <body>
+
+<div class="pwd-overlay" id="pwd-overlay">
+  <div class="pwd-box">
+    <h2>🔒 Βεβαίωση ΕΟΠΥΥ</h2>
+    <p>Εισάγετε κωδικό πρόσβασης</p>
+    <input type="password" id="pwd-input" maxlength="10" placeholder="••••••"
+      onkeydown="if(event.key==='Enter')checkPwd()">
+    <button onclick="checkPwd()">Είσοδος</button>
+    <div class="pwd-error" id="pwd-error">❌ Λάθος κωδικός</div>
+  </div>
+</div>
+
 <div class="app">
   <div class="form-panel">
     <h2>📋 Βεβαίωση ΕΟΠΥΥ</h2>
@@ -537,6 +574,21 @@ function renderClosedList() {
   }).join('');
 }
 
+
+function checkPwd() {
+  const val = document.getElementById('pwd-input').value;
+  if (val === '20089') {
+    document.getElementById('pwd-overlay').style.display = 'none';
+  } else {
+    document.getElementById('pwd-input').classList.add('error');
+    document.getElementById('pwd-error').style.display = 'block';
+    document.getElementById('pwd-input').value = '';
+    setTimeout(() => {
+      document.getElementById('pwd-input').classList.remove('error');
+    }, 1000);
+  }
+}
+
 refreshSel(); alert('✅ Αποθηκεύτηκε: '+n);
 }
 
@@ -615,6 +667,21 @@ function renderClosedList() {
     const to   = r.from === r.to ? '' : ` — ${fmtGRstr(r.to)}`;
     return `<div class="closed-item"><span>${from}${to}</span><button onclick="removeClosedRange(${i})">✕</button></div>`;
   }).join('');
+}
+
+
+function checkPwd() {
+  const val = document.getElementById('pwd-input').value;
+  if (val === '20089') {
+    document.getElementById('pwd-overlay').style.display = 'none';
+  } else {
+    document.getElementById('pwd-input').classList.add('error');
+    document.getElementById('pwd-error').style.display = 'block';
+    document.getElementById('pwd-input').value = '';
+    setTimeout(() => {
+      document.getElementById('pwd-input').classList.remove('error');
+    }, 1000);
+  }
 }
 
 refreshSel();
@@ -712,6 +779,21 @@ function renderClosedList() {
     const to   = r.from === r.to ? '' : ` — ${fmtGRstr(r.to)}`;
     return `<div class="closed-item"><span>${from}${to}</span><button onclick="removeClosedRange(${i})">✕</button></div>`;
   }).join('');
+}
+
+
+function checkPwd() {
+  const val = document.getElementById('pwd-input').value;
+  if (val === '20089') {
+    document.getElementById('pwd-overlay').style.display = 'none';
+  } else {
+    document.getElementById('pwd-input').classList.add('error');
+    document.getElementById('pwd-error').style.display = 'block';
+    document.getElementById('pwd-input').value = '';
+    setTimeout(() => {
+      document.getElementById('pwd-input').classList.remove('error');
+    }, 1000);
+  }
 }
 
 refreshSel(); closeModal();
@@ -834,6 +916,31 @@ body{font-family:'Times New Roman',serif;font-size:13px;line-height:1.45}
 .doc-date{font-size:12px}
 .doc-rep{font-weight:bold;font-size:12px;text-align:right}
 .doc-rep-stamp img{max-height:150px;max-width:280px;opacity:0.9}
+
+.pwd-overlay {
+  display: flex; position: fixed; inset: 0;
+  background: #b85c6e; z-index: 9999;
+  align-items: center; justify-content: center;
+}
+.pwd-box {
+  background: white; border-radius: 10px; padding: 32px;
+  text-align: center; min-width: 280px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.pwd-box h2 { color: #b85c6e; font-size: 16px; margin-bottom: 6px; }
+.pwd-box p { color: #666; font-size: 12px; margin-bottom: 16px; }
+.pwd-box input {
+  width: 100%; padding: 10px; border: 2px solid #ddd;
+  border-radius: 6px; font-size: 18px; text-align: center;
+  letter-spacing: 4px; margin-bottom: 10px;
+}
+.pwd-box input.error { border-color: #c62828; }
+.pwd-box button {
+  width: 100%; padding: 10px; background: #b85c6e;
+  color: white; border: none; border-radius: 6px;
+  font-size: 14px; cursor: pointer; font-weight: bold;
+}
+.pwd-error { color: #c62828; font-size: 11px; margin-top: 6px; display:none; }
 </style></head><body>${html}</body></html>`);
   win.document.close();
   setTimeout(() => win.print(), 600);
@@ -918,6 +1025,21 @@ function renderClosedList() {
     const to   = r.from === r.to ? '' : ` — ${fmtGRstr(r.to)}`;
     return `<div class="closed-item"><span>${from}${to}</span><button onclick="removeClosedRange(${i})">✕</button></div>`;
   }).join('');
+}
+
+
+function checkPwd() {
+  const val = document.getElementById('pwd-input').value;
+  if (val === '20089') {
+    document.getElementById('pwd-overlay').style.display = 'none';
+  } else {
+    document.getElementById('pwd-input').classList.add('error');
+    document.getElementById('pwd-error').style.display = 'block';
+    document.getElementById('pwd-input').value = '';
+    setTimeout(() => {
+      document.getElementById('pwd-input').classList.remove('error');
+    }, 1000);
+  }
 }
 
 refreshSel();
