@@ -94,6 +94,20 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
 <div class="app">
   <div class="form-panel">
     <h2>📋 Βεβαίωση ΕΟΠΥΥ</h2>
+    <div class="fsec" style="background:#e3f2fd;border-radius:6px;padding:8px;margin-bottom:10px;">
+      <h3 style="color:#1a3a5c;margin-bottom:6px">Κέντρο</h3>
+      <div style="display:flex;gap:16px;">
+        <label style="display:flex;align-items:center;gap:5px;font-size:13px;font-weight:bold;cursor:pointer;">
+          <input type="radio" name="kentro" value="K1" checked> Κ1
+        </label>
+        <label style="display:flex;align-items:center;gap:5px;font-size:13px;font-weight:bold;cursor:pointer;">
+          <input type="radio" name="kentro" value="K2"> Κ2
+        </label>
+        <label style="display:flex;align-items:center;gap:5px;font-size:13px;font-weight:bold;cursor:pointer;">
+          <input type="radio" name="kentro" value="K3"> Κ3
+        </label>
+      </div>
+    </div>
     <div class="hol-info">
       <strong>Αργίες 2026–2040 (αυτόματα)</strong>
       Σταθερές + Πάσχα με αλγόριθμο. Σ/Κ εξαιρούνται αυτόματα.
@@ -271,7 +285,15 @@ const PRESET_THERAPISTS = {
   eidiki: []
 };
 
-const KENTRO_IMG = BASE_IMG + 'simperilipsi.png';
+const KENTRO_IMGS = {
+  'K1': BASE_IMG + 'simperilipsi.png',
+  'K2': BASE_IMG + 'simperilipsi2.png',
+  'K3': BASE_IMG + 'simperilipsi3.png',
+};
+function getKentroImg() {
+  const sel = document.querySelector('input[name="kentro"]:checked');
+  return sel ? KENTRO_IMGS[sel.value] : KENTRO_IMGS['K1'];
+}
 
 // ===== ΑΛΓΟΡΙΘΜΟΣ ΠΑΣΧΑ (Meeus-Jones-Butcher) =====
 // Υπολογίζει το Ορθόδοξο Πάσχα για οποιοδήποτε έτος
@@ -776,7 +798,7 @@ function getDocHTML(iss) {
         <div class="doc-date">Ημερομηνία: ${iss}</div>
         <div class="doc-rep">
           Η Νόμιμος Εκπρόσωπος του Κέντρου<br>Τσιάτσιου Σταματία-Παρασκευή
-          <div class="doc-rep-stamp"><img src="${KENTRO_IMG}" alt="σφραγίδα κέντρου"></div>
+          <div class="doc-rep-stamp"><img src="${getKentroImg()}" alt="σφραγίδα κέντρου"></div>
         </div>
       </div>
     </div>`;
@@ -821,6 +843,7 @@ function clearAll() {
   document.querySelectorAll('input[type=text],input[type=date]').forEach(i => i.value='');
   document.querySelectorAll('input[type=checkbox]').forEach(c => c.checked=false);
   document.querySelectorAll('input[name="fylo"]')[0].checked = true;
+  document.querySelectorAll('input[name="kentro"]')[0].checked = true;
   document.querySelectorAll('.tfields').forEach(f => f.classList.remove('active'));
   document.getElementById('doc').innerHTML = '<div class="empty">👆 Συμπλήρωσε τα στοιχεία αριστερά<br>και πάτα <strong>"Δημιουργία Βεβαίωσης"</strong></div>';
 }
