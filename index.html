@@ -765,7 +765,7 @@ function getTherapistImg(t) {
 function makeBox(title, t, alwaysShow) {
   const map = { logo:'chkL', ergo:'chkE', psyho:'chkP', eidiki:'chkD' };
   const chk = document.getElementById(map[t]);
-  const emptyBox = `<div class="tbox"><div class="tbox-title">${title} :</div><div style="min-height:14px"></div><div style="margin-top:5px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div style="margin-top:2px;font-size:11.5px"><p>Αρ. άδειας άσκησης επαγγέλματος:</p><p>Αρμόδια εκδούσα αρχή:</p><p>Ημερομηνία:</p></div></div></div>`;
+  const emptyBox = `<div class="tbox" style="padding:5px 10px;"><div class="tbox-title">${title} :</div><div class="th-lbl" style="margin-top:3px;">Στοιχεία θεραπευτή</div><div style="font-size:11.5px;line-height:1.3"><p>Αρ. άδειας άσκησης επαγγέλματος:</p><p>Αρμόδια εκδούσα αρχή:</p><p>Ημερομηνία:</p></div></div>`;
   if (!chk || !chk.checked) return alwaysShow ? emptyBox : '';
   const n     = document.getElementById(t+'-n').value;
   const lic   = document.getElementById(t+'-lic').value;
