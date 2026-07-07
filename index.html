@@ -41,6 +41,11 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
 .btn-gen:hover { background: #2d6a9f; }
 .btn-pdf { width: 100%; padding: 8px; background: #6a1b9a; color: white; border: none; border-radius: 6px; font-size: 12px; cursor: pointer; margin-top: 5px; }
 .btn-clr { width: 100%; padding: 6px; background: #fff; color: #666; border: 1px solid #ddd; border-radius: 6px; font-size: 11px; cursor: pointer; margin-top: 4px; }
+.btn-closed { width: 100%; padding: 8px; background: #e65100; color: white; border: none; border-radius: 6px; font-size: 12px; cursor: pointer; margin-top: 4px; margin-bottom: 4px; }
+.btn-closed:hover { background: #bf360c; }
+.closed-list { max-height: 150px; overflow-y: auto; margin: 8px 0; }
+.closed-item { display: flex; justify-content: space-between; align-items: center; padding: 4px 6px; background: #fff3e0; border-radius: 3px; margin-bottom: 3px; font-size: 11px; }
+.closed-item button { background: #c62828; color: white; border: none; border-radius: 2px; padding: 2px 5px; cursor: pointer; font-size: 10px; }
 .hol-info { background: #fff8e1; border: 1px solid #ffc107; border-radius: 4px; padding: 7px; margin-bottom: 10px; font-size: 10.5px; color: #555; }
 .hol-info strong { color: #e65100; display: block; margin-bottom: 2px; font-size: 11px; }
 .doc-panel { flex: 1; }
@@ -56,12 +61,12 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
 .doc-intro span { font-weight: bold; }
 .tbox { border: 1.5px solid #333; margin-bottom: 7px; padding: 7px 10px; }
 .tbox-title { font-weight: bold; font-size: 13px; margin-bottom: 4px; }
-.tbox-dates { font-size: 11.5px; color: #222; margin-bottom: 5px; line-height: 1.5; }
+.tbox-dates { font-size: 11.5px; color: #000; margin-bottom: 5px; line-height: 1.5; }
 .th-lbl { font-size: 12px; font-weight: bold; text-decoration: underline; margin-bottom: 2px; }
 .th-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; font-size: 11.5px; line-height: 1.35; }
 .th-grid p { margin: 0; padding: 0; }
-.th-stamp { margin-top: 6px; min-height: 55px; }
-.th-stamp img { max-height: 70px; max-width: 200px; opacity: 0.9; }
+.th-stamp { margin-top: 6px; min-height: 120px; }
+.th-stamp img { max-height: 140px; max-width: 380px; opacity: 0.9; }
 .doc-footer { margin-top: 10px; font-size: 12px; }
 .doc-footer-row { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 8px; }
 .doc-date { font-size: 12px; }
@@ -198,6 +203,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
         </div>
       </div>
     </div>
+    <button class="btn-closed" onclick="openClosedDays()">📅 Κλειστές Ημέρες Κέντρου</button>
     <button class="btn-gen" onclick="generate()">📄 Δημιουργία Βεβαίωσης</button>
     <button class="btn-pdf" onclick="openPDF()">🖨️ Εκτύπωση / Αποθήκευση PDF</button>
     <button class="btn-clr" onclick="clearAll()">🗑️ Καθαρισμός</button>
@@ -225,6 +231,24 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
   </div>
 </div>
 
+<!-- MODAL ΚΛΕΙΣΤΕΣ ΗΜΕΡΕΣ -->
+<div class="modal-bg" id="modal-closed">
+  <div class="modal" style="max-width:420px">
+    <h3>📅 Κλειστές Ημέρες Κέντρου</h3>
+    <p style="font-size:11px;color:#666;margin-bottom:10px;">Πρόσθεσε ημερομηνίες που το κέντρο είναι κλειστό (πέρα από αργίες). Αποθηκεύονται σε αυτόν τον υπολογιστή.</p>
+    <div style="display:flex;gap:6px;margin-bottom:8px;align-items:flex-end">
+      <div style="flex:1"><label style="font-size:11px;font-weight:bold;display:block;margin-bottom:2px">Από</label><input type="date" id="closed-from" style="width:100%;padding:5px;border:1px solid #ddd;border-radius:4px;font-size:12px"></div>
+      <div style="flex:1"><label style="font-size:11px;font-weight:bold;display:block;margin-bottom:2px">Έως</label><input type="date" id="closed-to" style="width:100%;padding:5px;border:1px solid #ddd;border-radius:4px;font-size:12px"></div>
+      <button onclick="addClosedRange()" style="padding:6px 10px;background:#e65100;color:white;border:none;border-radius:4px;cursor:pointer;font-size:11px;white-space:nowrap">+ Προσθήκη</button>
+    </div>
+    <div class="closed-list" id="closed-list"></div>
+    <div class="modal-btns">
+      <button class="btn-ok" onclick="closeClosedDays()">✅ Κλείσιμο</button>
+      <button class="btn-cancel" style="background:#ffebee;color:#c62828" onclick="clearAllClosed()">🗑️ Διαγραφή όλων</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const ADA = 'Ψ0Ι4ΟΞ7Μ-Ι8Λ';
 const BASE_IMG = 'https://raw.githubusercontent.com/simperilipsi/simperilipsi_tester/main/';
@@ -233,7 +257,7 @@ const BASE_IMG = 'https://raw.githubusercontent.com/simperilipsi/simperilipsi_te
 const PRESET_THERAPISTS = {
   logo: [
     { name: 'ΖΥΜΒΡΑΓΟΥΔΑΚΗ ΚΑΛΛΙΟΠΗ ΤΟΥ ΓΕΩΡΓΙΟΥ', lic: '22966',  auth: 'Περιφ.Ενότ.Χανίων',                   ldate: '2021-02-01', img: BASE_IMG+'zimbragoudaki.png' },
-    { name: 'ΑΡΤΖΟΥΧΑΛΤΖΗ ΜΑΡΙΑ ΤΟΥ ΑΝΤΩΝΙΟΥ',     lic: '30486',  auth: 'Περιφ.Ενότ.Χανίων',                   ldate: '2025-01-29', img: '' },
+    { name: 'ΑΡΤΖΟΥΧΑΛΤΖΗ ΜΑΡΙΑ ΤΟΥ ΑΝΤΩΝΙΟΥ',     lic: '30486',  auth: 'Περιφ.Ενότ.Χανίων',                   ldate: '2025-01-29', img: BASE_IMG+'artzouxaltzi.png' },
     { name: 'ΡΙΤΖΑΚΗ ΑΡΓΥΡΩ ΤΟΥ ΚΩΝΣΤΑΝΤΙΝΟΥ',     lic: '369557', auth: 'Περιφ.Ενότ.Χανίων',                   ldate: '2025-10-29', img: '' },
   ],
   ergo: [
@@ -242,7 +266,7 @@ const PRESET_THERAPISTS = {
   ],
   psyho: [
     { name: 'ΧΙΩΤΑΚΗ ΡΟΔΩ ΤΟΥ ΑΝΔΡΕΑ',             lic: '342394', auth: 'Περιφ.Ενότ.Χανίων',                   ldate: '2025-10-08', img: BASE_IMG+'xiotaki.png' },
-    { name: 'ΜΩΡΑΪΤΑΚΗ ΜΑΡΙΝΑ ΤΟΥ ΝΕΚΤΑΡΙΟΥ',      lic: '340995', auth: 'Περιφ.Ενότ.Χανίων',                   ldate: '2023-10-12', img: '' },
+    { name: 'ΜΩΡΑΪΤΑΚΗ ΜΑΡΙΝΑ ΤΟΥ ΝΕΚΤΑΡΙΟΥ',      lic: '340995', auth: 'Περιφ.Ενότ.Χανίων',                   ldate: '2023-10-12', img: BASE_IMG+'moraitaki.png' },
   ],
   eidiki: []
 };
@@ -328,7 +352,7 @@ function isWE(d) {
 }
 
 function isWork(d) {
-  return !isWE(d) && !isHol(d);
+  return !isWE(d) && !isHol(d) && !isClosedDay(d);
 }
 
 function fmtGR(d) {
@@ -419,7 +443,79 @@ function saveCustomT(t) {
   const l = getCustomList(t), idx = l.findIndex(x => x.name === n);
   const obj = { name:n, lic:document.getElementById(t+'-lic').value, auth:document.getElementById(t+'-auth').value, ldate:document.getElementById(t+'-ldate').value, img:'' };
   if (idx >= 0) l[idx] = obj; else l.push(obj);
-  setCustomList(t, l); refreshSel(); alert('✅ Αποθηκεύτηκε: '+n);
+  setCustomList(t, l); 
+// ===== ΚΛΕΙΣΤΕΣ ΗΜΕΡΕΣ =====
+const CLOSED_KEY = 'symp_closed_days';
+
+function getClosedRanges() {
+  try { return JSON.parse(localStorage.getItem(CLOSED_KEY)||'[]'); } catch(e) { return []; }
+}
+function setClosedRanges(r) {
+  try { localStorage.setItem(CLOSED_KEY, JSON.stringify(r)); } catch(e) {}
+}
+
+function isClosedDay(d) {
+  const key = dateKey(d);
+  const [y,m,day] = key.split('-').map(Number);
+  const ts = localDate(y,m,day).getTime();
+  return getClosedRanges().some(r => {
+    const [fy,fm,fd] = r.from.split('-').map(Number);
+    const [ty,tm,td] = r.to.split('-').map(Number);
+    const from = localDate(fy,fm,fd).getTime();
+    const to   = localDate(ty,tm,td).getTime();
+    return ts >= from && ts <= to;
+  });
+}
+
+function openClosedDays() {
+  renderClosedList();
+  document.getElementById('modal-closed').classList.add('open');
+}
+function closeClosedDays() {
+  document.getElementById('modal-closed').classList.remove('open');
+  onPeriodChange();
+}
+
+function addClosedRange() {
+  const from = document.getElementById('closed-from').value;
+  const to   = document.getElementById('closed-to').value || from;
+  if (!from) { alert('Βάλε ημερομηνία!'); return; }
+  const ranges = getClosedRanges();
+  ranges.push({ from, to });
+  setClosedRanges(ranges);
+  renderClosedList();
+  document.getElementById('closed-from').value = '';
+  document.getElementById('closed-to').value = '';
+}
+
+function removeClosedRange(idx) {
+  const ranges = getClosedRanges();
+  ranges.splice(idx, 1);
+  setClosedRanges(ranges);
+  renderClosedList();
+}
+
+function clearAllClosed() {
+  if (!confirm('Διαγραφή όλων των κλειστών ημερών;')) return;
+  setClosedRanges([]);
+  renderClosedList();
+}
+
+function renderClosedList() {
+  const ranges = getClosedRanges();
+  const el = document.getElementById('closed-list');
+  if (!ranges.length) {
+    el.innerHTML = '<div style="font-size:11px;color:#999;text-align:center;padding:8px">Δεν υπάρχουν κλειστές ημέρες</div>';
+    return;
+  }
+  el.innerHTML = ranges.map((r,i) => {
+    const from = fmtGRstr(r.from);
+    const to   = r.from === r.to ? '' : ` — ${fmtGRstr(r.to)}`;
+    return `<div class="closed-item"><span>${from}${to}</span><button onclick="removeClosedRange(${i})">✕</button></div>`;
+  }).join('');
+}
+
+refreshSel(); alert('✅ Αποθηκεύτηκε: '+n);
 }
 
 function deleteCustomT(t) {
@@ -427,7 +523,79 @@ function deleteCustomT(t) {
   if (!n) { alert('Επίλεξε θεραπευτή!'); return; }
   if (isPreset(t, n)) { alert('Οι θεραπευτές κέντρου δεν μπορούν να διαγραφούν.'); return; }
   if (!confirm('Διαγραφή: '+n+'?')) return;
-  setCustomList(t, getCustomList(t).filter(x => x.name !== n)); refreshSel();
+  setCustomList(t, getCustomList(t).filter(x => x.name !== n)); 
+// ===== ΚΛΕΙΣΤΕΣ ΗΜΕΡΕΣ =====
+const CLOSED_KEY = 'symp_closed_days';
+
+function getClosedRanges() {
+  try { return JSON.parse(localStorage.getItem(CLOSED_KEY)||'[]'); } catch(e) { return []; }
+}
+function setClosedRanges(r) {
+  try { localStorage.setItem(CLOSED_KEY, JSON.stringify(r)); } catch(e) {}
+}
+
+function isClosedDay(d) {
+  const key = dateKey(d);
+  const [y,m,day] = key.split('-').map(Number);
+  const ts = localDate(y,m,day).getTime();
+  return getClosedRanges().some(r => {
+    const [fy,fm,fd] = r.from.split('-').map(Number);
+    const [ty,tm,td] = r.to.split('-').map(Number);
+    const from = localDate(fy,fm,fd).getTime();
+    const to   = localDate(ty,tm,td).getTime();
+    return ts >= from && ts <= to;
+  });
+}
+
+function openClosedDays() {
+  renderClosedList();
+  document.getElementById('modal-closed').classList.add('open');
+}
+function closeClosedDays() {
+  document.getElementById('modal-closed').classList.remove('open');
+  onPeriodChange();
+}
+
+function addClosedRange() {
+  const from = document.getElementById('closed-from').value;
+  const to   = document.getElementById('closed-to').value || from;
+  if (!from) { alert('Βάλε ημερομηνία!'); return; }
+  const ranges = getClosedRanges();
+  ranges.push({ from, to });
+  setClosedRanges(ranges);
+  renderClosedList();
+  document.getElementById('closed-from').value = '';
+  document.getElementById('closed-to').value = '';
+}
+
+function removeClosedRange(idx) {
+  const ranges = getClosedRanges();
+  ranges.splice(idx, 1);
+  setClosedRanges(ranges);
+  renderClosedList();
+}
+
+function clearAllClosed() {
+  if (!confirm('Διαγραφή όλων των κλειστών ημερών;')) return;
+  setClosedRanges([]);
+  renderClosedList();
+}
+
+function renderClosedList() {
+  const ranges = getClosedRanges();
+  const el = document.getElementById('closed-list');
+  if (!ranges.length) {
+    el.innerHTML = '<div style="font-size:11px;color:#999;text-align:center;padding:8px">Δεν υπάρχουν κλειστές ημέρες</div>';
+    return;
+  }
+  el.innerHTML = ranges.map((r,i) => {
+    const from = fmtGRstr(r.from);
+    const to   = r.from === r.to ? '' : ` — ${fmtGRstr(r.to)}`;
+    return `<div class="closed-item"><span>${from}${to}</span><button onclick="removeClosedRange(${i})">✕</button></div>`;
+  }).join('');
+}
+
+refreshSel();
 }
 
 function editCustomT(t) {
@@ -452,7 +620,79 @@ function saveEdit() {
   const l = getCustomList(t), idx = l.findIndex(x => x.name === old);
   if (idx < 0) { alert('Δεν βρέθηκε!'); return; }
   l[idx] = { name:newN, lic:document.getElementById('edit-lic').value, auth:document.getElementById('edit-auth').value, ldate:document.getElementById('edit-ldate').value, img:'' };
-  setCustomList(t, l); refreshSel(); closeModal();
+  setCustomList(t, l); 
+// ===== ΚΛΕΙΣΤΕΣ ΗΜΕΡΕΣ =====
+const CLOSED_KEY = 'symp_closed_days';
+
+function getClosedRanges() {
+  try { return JSON.parse(localStorage.getItem(CLOSED_KEY)||'[]'); } catch(e) { return []; }
+}
+function setClosedRanges(r) {
+  try { localStorage.setItem(CLOSED_KEY, JSON.stringify(r)); } catch(e) {}
+}
+
+function isClosedDay(d) {
+  const key = dateKey(d);
+  const [y,m,day] = key.split('-').map(Number);
+  const ts = localDate(y,m,day).getTime();
+  return getClosedRanges().some(r => {
+    const [fy,fm,fd] = r.from.split('-').map(Number);
+    const [ty,tm,td] = r.to.split('-').map(Number);
+    const from = localDate(fy,fm,fd).getTime();
+    const to   = localDate(ty,tm,td).getTime();
+    return ts >= from && ts <= to;
+  });
+}
+
+function openClosedDays() {
+  renderClosedList();
+  document.getElementById('modal-closed').classList.add('open');
+}
+function closeClosedDays() {
+  document.getElementById('modal-closed').classList.remove('open');
+  onPeriodChange();
+}
+
+function addClosedRange() {
+  const from = document.getElementById('closed-from').value;
+  const to   = document.getElementById('closed-to').value || from;
+  if (!from) { alert('Βάλε ημερομηνία!'); return; }
+  const ranges = getClosedRanges();
+  ranges.push({ from, to });
+  setClosedRanges(ranges);
+  renderClosedList();
+  document.getElementById('closed-from').value = '';
+  document.getElementById('closed-to').value = '';
+}
+
+function removeClosedRange(idx) {
+  const ranges = getClosedRanges();
+  ranges.splice(idx, 1);
+  setClosedRanges(ranges);
+  renderClosedList();
+}
+
+function clearAllClosed() {
+  if (!confirm('Διαγραφή όλων των κλειστών ημερών;')) return;
+  setClosedRanges([]);
+  renderClosedList();
+}
+
+function renderClosedList() {
+  const ranges = getClosedRanges();
+  const el = document.getElementById('closed-list');
+  if (!ranges.length) {
+    el.innerHTML = '<div style="font-size:11px;color:#999;text-align:center;padding:8px">Δεν υπάρχουν κλειστές ημέρες</div>';
+    return;
+  }
+  el.innerHTML = ranges.map((r,i) => {
+    const from = fmtGRstr(r.from);
+    const to   = r.from === r.to ? '' : ` — ${fmtGRstr(r.to)}`;
+    return `<div class="closed-item"><span>${from}${to}</span><button onclick="removeClosedRange(${i})">✕</button></div>`;
+  }).join('');
+}
+
+refreshSel(); closeModal();
   document.getElementById(t+'-n').value = newN;
   alert('✅ Ενημερώθηκε!');
 }
@@ -512,7 +752,7 @@ function makeBox(title, t, alwaysShow) {
   const dates = getDates(t).join(', ');
   const imgUrl = getTherapistImg(t);
   const stampHTML = imgUrl ? `<div class="th-stamp"><img src="${imgUrl}" alt="σφραγίδα"></div>` : `<div style="height:55px;"></div>`;
-  return `<div class="tbox"><div class="tbox-title">${title} :</div><div class="tbox-dates">${dates}</div><div style="margin-top:5px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid" style="margin-top:2px"><div><p>${n}</p>${stampHTML}</div><div><p>Αρ. άδειας άσκησης επαγγέλματος: ${lic}</p><p>Αρμόδια εκδούσα αρχή: ${auth}</p><p>Ημερομηνία: ${ldate}</p></div></div></div></div>`;
+  return `<div class="tbox"><div class="tbox-title">${title} :</div><div class="tbox-dates" style="color:#000">${dates}</div><div style="margin-top:5px"><div class="th-lbl">Στοιχεία θεραπευτή</div><div class="th-grid" style="margin-top:2px"><div><p>${n}</p>${stampHTML}</div><div><p>Αρ. άδειας άσκησης επαγγέλματος: ${lic}</p><p>Αρμόδια εκδούσα αρχή: ${auth}</p><p>Ημερομηνία: ${ldate}</p></div></div></div></div>`;
 }
 
 function getDocHTML(iss) {
@@ -562,11 +802,11 @@ body{font-family:'Times New Roman',serif;font-size:13px;line-height:1.45}
 .doc-intro span{font-weight:bold}
 .tbox{border:1.5px solid #333;margin-bottom:7px;padding:7px 10px;page-break-inside:avoid}
 .tbox-title{font-weight:bold;font-size:13px;margin-bottom:4px}
-.tbox-dates{font-size:11.5px;color:#222;margin-bottom:5px;line-height:1.5}
+.tbox-dates{font-size:11.5px;color:#000;margin-bottom:5px;line-height:1.5}
 .th-lbl{font-size:12px;font-weight:bold;text-decoration:underline;margin-bottom:2px}
 .th-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;font-size:11.5px;line-height:1.35}
 .th-grid p{margin:0;padding:0}
-.th-stamp img{max-height:70px;max-width:200px;opacity:0.9}
+.th-stamp img{max-height:140px;max-width:380px;opacity:0.9}
 .doc-footer{margin-top:10px;font-size:12px}
 .doc-footer-row{display:flex;justify-content:space-between;align-items:flex-start;margin-top:8px}
 .doc-date{font-size:12px}
@@ -583,6 +823,78 @@ function clearAll() {
   document.querySelectorAll('input[name="fylo"]')[0].checked = true;
   document.querySelectorAll('.tfields').forEach(f => f.classList.remove('active'));
   document.getElementById('doc').innerHTML = '<div class="empty">👆 Συμπλήρωσε τα στοιχεία αριστερά<br>και πάτα <strong>"Δημιουργία Βεβαίωσης"</strong></div>';
+}
+
+
+// ===== ΚΛΕΙΣΤΕΣ ΗΜΕΡΕΣ =====
+const CLOSED_KEY = 'symp_closed_days';
+
+function getClosedRanges() {
+  try { return JSON.parse(localStorage.getItem(CLOSED_KEY)||'[]'); } catch(e) { return []; }
+}
+function setClosedRanges(r) {
+  try { localStorage.setItem(CLOSED_KEY, JSON.stringify(r)); } catch(e) {}
+}
+
+function isClosedDay(d) {
+  const key = dateKey(d);
+  const [y,m,day] = key.split('-').map(Number);
+  const ts = localDate(y,m,day).getTime();
+  return getClosedRanges().some(r => {
+    const [fy,fm,fd] = r.from.split('-').map(Number);
+    const [ty,tm,td] = r.to.split('-').map(Number);
+    const from = localDate(fy,fm,fd).getTime();
+    const to   = localDate(ty,tm,td).getTime();
+    return ts >= from && ts <= to;
+  });
+}
+
+function openClosedDays() {
+  renderClosedList();
+  document.getElementById('modal-closed').classList.add('open');
+}
+function closeClosedDays() {
+  document.getElementById('modal-closed').classList.remove('open');
+  onPeriodChange();
+}
+
+function addClosedRange() {
+  const from = document.getElementById('closed-from').value;
+  const to   = document.getElementById('closed-to').value || from;
+  if (!from) { alert('Βάλε ημερομηνία!'); return; }
+  const ranges = getClosedRanges();
+  ranges.push({ from, to });
+  setClosedRanges(ranges);
+  renderClosedList();
+  document.getElementById('closed-from').value = '';
+  document.getElementById('closed-to').value = '';
+}
+
+function removeClosedRange(idx) {
+  const ranges = getClosedRanges();
+  ranges.splice(idx, 1);
+  setClosedRanges(ranges);
+  renderClosedList();
+}
+
+function clearAllClosed() {
+  if (!confirm('Διαγραφή όλων των κλειστών ημερών;')) return;
+  setClosedRanges([]);
+  renderClosedList();
+}
+
+function renderClosedList() {
+  const ranges = getClosedRanges();
+  const el = document.getElementById('closed-list');
+  if (!ranges.length) {
+    el.innerHTML = '<div style="font-size:11px;color:#999;text-align:center;padding:8px">Δεν υπάρχουν κλειστές ημέρες</div>';
+    return;
+  }
+  el.innerHTML = ranges.map((r,i) => {
+    const from = fmtGRstr(r.from);
+    const to   = r.from === r.to ? '' : ` — ${fmtGRstr(r.to)}`;
+    return `<div class="closed-item"><span>${from}${to}</span><button onclick="removeClosedRange(${i})">✕</button></div>`;
+  }).join('');
 }
 
 refreshSel();
