@@ -43,6 +43,8 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
 .btn-clr { width: 100%; padding: 6px; background: #fff; color: #666; border: 1px solid #ddd; border-radius: 6px; font-size: 11px; cursor: pointer; margin-top: 4px; }
 .btn-closed { width: 100%; padding: 8px; background: #e65100; color: white; border: none; border-radius: 6px; font-size: 12px; cursor: pointer; margin-top: 4px; margin-bottom: 4px; }
 .btn-closed:hover { background: #bf360c; }
+.btn-closed.active { background: #2e7d32; }
+.btn-closed.active:hover { background: #1b5e20; }
 .closed-list { max-height: 150px; overflow-y: auto; margin: 8px 0; }
 .closed-item { display: flex; justify-content: space-between; align-items: center; padding: 4px 6px; background: #fff3e0; border-radius: 3px; margin-bottom: 3px; font-size: 11px; }
 .closed-item button { background: #c62828; color: white; border: none; border-radius: 2px; padding: 2px 5px; cursor: pointer; font-size: 10px; }
@@ -172,7 +174,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
       <div class="trow logo">
         <div class="ttog"><input type="checkbox" id="chkL" onchange="toggleT('logo')"><label for="chkL">🔵 Λογοθεραπεία</label></div>
         <div class="tfields" id="f-logo">
-          <div class="saved-row"><select id="sel-logo" onchange="loadT('logo')"><option value="">-- Επίλεξε Λογοθεραπευτή --</option></select></div>
+          <div class="saved-row"><select id="sel-logo" onchange="loadT('logo')" onclick="loadT('logo')"><option value="">-- Επίλεξε Λογοθεραπευτή --</option></select></div>
           <div class="fg"><label>Ονοματεπώνυμο</label><input type="text" id="logo-n" oninput="this.value=this.value.toUpperCase()"></div>
           <div class="fg"><label>Αρ. άδειας</label><input type="text" id="logo-lic"></div>
           <div class="fg"><label>Αρμόδια αρχή</label><input type="text" id="logo-auth"></div>
@@ -193,7 +195,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
       <div class="trow ergo">
         <div class="ttog"><input type="checkbox" id="chkE" onchange="toggleT('ergo')"><label for="chkE">🟢 Εργοθεραπεία</label></div>
         <div class="tfields" id="f-ergo">
-          <div class="saved-row"><select id="sel-ergo" onchange="loadT('ergo')"><option value="">-- Επίλεξε Εργοθεραπευτή --</option></select></div>
+          <div class="saved-row"><select id="sel-ergo" onchange="loadT('ergo')" onclick="loadT('ergo')"><option value="">-- Επίλεξε Εργοθεραπευτή --</option></select></div>
           <div class="fg"><label>Ονοματεπώνυμο</label><input type="text" id="ergo-n" oninput="this.value=this.value.toUpperCase()"></div>
           <div class="fg"><label>Αρ. άδειας</label><input type="text" id="ergo-lic"></div>
           <div class="fg"><label>Αρμόδια αρχή</label><input type="text" id="ergo-auth"></div>
@@ -214,7 +216,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
       <div class="trow psyho">
         <div class="ttog"><input type="checkbox" id="chkP" onchange="toggleT('psyho')"><label for="chkP">🟣 Ψυχοθεραπεία</label></div>
         <div class="tfields" id="f-psyho">
-          <div class="saved-row"><select id="sel-psyho" onchange="loadT('psyho')"><option value="">-- Επίλεξε Ψυχοθεραπευτή --</option></select></div>
+          <div class="saved-row"><select id="sel-psyho" onchange="loadT('psyho')" onclick="loadT('psyho')"><option value="">-- Επίλεξε Ψυχοθεραπευτή --</option></select></div>
           <div class="fg"><label>Ονοματεπώνυμο</label><input type="text" id="psyho-n" oninput="this.value=this.value.toUpperCase()"></div>
           <div class="fg"><label>Αρ. άδειας</label><input type="text" id="psyho-lic"></div>
           <div class="fg"><label>Αρμόδια αρχή</label><input type="text" id="psyho-auth"></div>
@@ -235,7 +237,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
       <div class="trow eidiki">
         <div class="ttog"><input type="checkbox" id="chkD" onchange="toggleT('eidiki')"><label for="chkD">🟠 Ειδική Διαπαιδαγώγηση</label></div>
         <div class="tfields" id="f-eidiki">
-          <div class="saved-row"><select id="sel-eidiki" onchange="loadT('eidiki')"><option value="">-- Επίλεξε Θεραπευτή Ειδικής --</option></select></div>
+          <div class="saved-row"><select id="sel-eidiki" onchange="loadT('eidiki')" onclick="loadT('eidiki')"><option value="">-- Επίλεξε Θεραπευτή Ειδικής --</option></select></div>
           <div class="fg"><label>Ονοματεπώνυμο</label><input type="text" id="eidiki-n" oninput="this.value=this.value.toUpperCase()"></div>
           <div class="fg"><label>Αρ. άδειας</label><input type="text" id="eidiki-lic"></div>
           <div class="fg"><label>Αρμόδια αρχή</label><input type="text" id="eidiki-auth"></div>
@@ -309,7 +311,7 @@ const PRESET_THERAPISTS = {
   logo: [
     { name: 'ΖΥΜΒΡΑΓΟΥΔΑΚΗ ΚΑΛΛΙΟΠΗ ΤΟΥ ΓΕΩΡΓΙΟΥ', lic: '22966',  auth: 'Περιφ.Ενότ.Χανίων',                   ldate: '2021-02-01', img: BASE_IMG+'zimbragoudaki.png' },
     { name: 'ΑΡΤΖΟΥΧΑΛΤΖΗ ΜΑΡΙΑ ΤΟΥ ΑΝΤΩΝΙΟΥ',     lic: '30486',  auth: 'Περιφ.Ενότ.Χανίων',                   ldate: '2025-01-29', img: BASE_IMG+'artzouxaltzi.png' },
-    { name: 'ΡΙΤΖΑΚΗ ΑΡΓΥΡΩ ΤΟΥ ΚΩΝΣΤΑΝΤΙΝΟΥ',     lic: '369557', auth: 'Περιφ.Ενότ.Χανίων',                   ldate: '2025-10-29', img: '' },
+    { name: 'ΡΙΤΖΑΚΗ ΑΡΓΥΡΩ ΤΟΥ ΚΩΝΣΤΑΝΤΙΝΟΥ',     lic: '369557', auth: 'Περιφ.Ενότ.Χανίων',                   ldate: '2025-10-29', img: BASE_IMG+'ritzaki.png' },
   ],
   ergo: [
     { name: 'ΚΟΥΝΔΟΥΡΑΚΗ ΜΑΡΙΑ ΤΟΥ ΠΑΝΤΕΛΗ',       lic: '6951',   auth: 'Περιφ.Ενότ.Βορείου Τομέα Αθηνών',    ldate: '2015-09-16', img: BASE_IMG+'koundouraki.png' },
@@ -323,7 +325,7 @@ const PRESET_THERAPISTS = {
 };
 
 const KENTRO_IMGS = {
-  'K1': BASE_IMG + 'simperilipsi.png',
+  'K1': BASE_IMG + 'simperilipsi1.png',
   'K2': BASE_IMG + 'simperilipsi2.png',
   'K3': BASE_IMG + 'simperilipsi3.png',
 };
@@ -532,6 +534,7 @@ function openClosedDays() {
 }
 function closeClosedDays() {
   document.getElementById('modal-closed').classList.remove('open');
+  updateClosedBtn();
   onPeriodChange();
 }
 
@@ -543,6 +546,7 @@ function addClosedRange() {
   ranges.push({ from, to });
   setClosedRanges(ranges);
   renderClosedList();
+  updateClosedBtn();
   document.getElementById('closed-from').value = '';
   document.getElementById('closed-to').value = '';
 }
@@ -552,12 +556,30 @@ function removeClosedRange(idx) {
   ranges.splice(idx, 1);
   setClosedRanges(ranges);
   renderClosedList();
+  updateClosedBtn();
 }
 
 function clearAllClosed() {
   if (!confirm('Διαγραφή όλων των κλειστών ημερών;')) return;
   setClosedRanges([]);
   renderClosedList();
+  updateClosedBtn();
+}
+
+function updateClosedBtn() {
+  const btn = document.querySelector('.btn-closed');
+  if (!btn) return;
+  const ranges = getClosedRanges();
+  const hasActive = ranges.length > 0;
+  // Check if closed days feature is enabled
+  const enabled = localStorage.getItem('symp_closed_enabled') !== 'false';
+  if (hasActive && enabled) {
+    btn.classList.add('active');
+    btn.textContent = '📅 Κλειστές Ημέρες Κέντρου ✅';
+  } else {
+    btn.classList.remove('active');
+    btn.textContent = '📅 Κλειστές Ημέρες Κέντρου';
+  }
 }
 
 function renderClosedList() {
@@ -589,7 +611,8 @@ function checkPwd() {
   }
 }
 
-refreshSel(); alert('✅ Αποθηκεύτηκε: '+n);
+refreshSel();
+updateClosedBtn(); alert('✅ Αποθηκεύτηκε: '+n);
 }
 
 function deleteCustomT(t) {
@@ -627,6 +650,7 @@ function openClosedDays() {
 }
 function closeClosedDays() {
   document.getElementById('modal-closed').classList.remove('open');
+  updateClosedBtn();
   onPeriodChange();
 }
 
@@ -638,6 +662,7 @@ function addClosedRange() {
   ranges.push({ from, to });
   setClosedRanges(ranges);
   renderClosedList();
+  updateClosedBtn();
   document.getElementById('closed-from').value = '';
   document.getElementById('closed-to').value = '';
 }
@@ -647,12 +672,30 @@ function removeClosedRange(idx) {
   ranges.splice(idx, 1);
   setClosedRanges(ranges);
   renderClosedList();
+  updateClosedBtn();
 }
 
 function clearAllClosed() {
   if (!confirm('Διαγραφή όλων των κλειστών ημερών;')) return;
   setClosedRanges([]);
   renderClosedList();
+  updateClosedBtn();
+}
+
+function updateClosedBtn() {
+  const btn = document.querySelector('.btn-closed');
+  if (!btn) return;
+  const ranges = getClosedRanges();
+  const hasActive = ranges.length > 0;
+  // Check if closed days feature is enabled
+  const enabled = localStorage.getItem('symp_closed_enabled') !== 'false';
+  if (hasActive && enabled) {
+    btn.classList.add('active');
+    btn.textContent = '📅 Κλειστές Ημέρες Κέντρου ✅';
+  } else {
+    btn.classList.remove('active');
+    btn.textContent = '📅 Κλειστές Ημέρες Κέντρου';
+  }
 }
 
 function renderClosedList() {
@@ -685,6 +728,7 @@ function checkPwd() {
 }
 
 refreshSel();
+updateClosedBtn();
 }
 
 function editCustomT(t) {
@@ -739,6 +783,7 @@ function openClosedDays() {
 }
 function closeClosedDays() {
   document.getElementById('modal-closed').classList.remove('open');
+  updateClosedBtn();
   onPeriodChange();
 }
 
@@ -750,6 +795,7 @@ function addClosedRange() {
   ranges.push({ from, to });
   setClosedRanges(ranges);
   renderClosedList();
+  updateClosedBtn();
   document.getElementById('closed-from').value = '';
   document.getElementById('closed-to').value = '';
 }
@@ -759,12 +805,30 @@ function removeClosedRange(idx) {
   ranges.splice(idx, 1);
   setClosedRanges(ranges);
   renderClosedList();
+  updateClosedBtn();
 }
 
 function clearAllClosed() {
   if (!confirm('Διαγραφή όλων των κλειστών ημερών;')) return;
   setClosedRanges([]);
   renderClosedList();
+  updateClosedBtn();
+}
+
+function updateClosedBtn() {
+  const btn = document.querySelector('.btn-closed');
+  if (!btn) return;
+  const ranges = getClosedRanges();
+  const hasActive = ranges.length > 0;
+  // Check if closed days feature is enabled
+  const enabled = localStorage.getItem('symp_closed_enabled') !== 'false';
+  if (hasActive && enabled) {
+    btn.classList.add('active');
+    btn.textContent = '📅 Κλειστές Ημέρες Κέντρου ✅';
+  } else {
+    btn.classList.remove('active');
+    btn.textContent = '📅 Κλειστές Ημέρες Κέντρου';
+  }
 }
 
 function renderClosedList() {
@@ -796,7 +860,8 @@ function checkPwd() {
   }
 }
 
-refreshSel(); closeModal();
+refreshSel();
+updateClosedBtn(); closeModal();
   document.getElementById(t+'-n').value = newN;
   alert('✅ Ενημερώθηκε!');
 }
@@ -895,8 +960,26 @@ function openPDF() {
   generate();
   const iss  = fmtGRstr(document.getElementById('issDate').value) || '__/__/____';
   const html = getDocHTML(iss);
+  // Build filename
+  const fullName = document.getElementById('cName').value.trim();
+  const lastName = fullName ? fullName.split(' ')[0] : '';
+  const parts = ['ΒΕΒΑΙΩΣΗ'];
+  if (lastName) parts.push(lastName);
+  const therapies = [
+    {id:'logo', label:'ΛΟΓΟ'}, {id:'ergo', label:'ΕΡΓΟ'},
+    {id:'psyho', label:'ΨΥΧΟ'}, {id:'eidiki', label:'ΕΙΔΙΚΗ'}
+  ];
+  const map = {logo:'chkL', ergo:'chkE', psyho:'chkP', eidiki:'chkD'};
+  therapies.forEach(({id, label}) => {
+    if (document.getElementById(map[id])?.checked) {
+      const n = document.getElementById(id+'-sess').value;
+      parts.push(n + label);
+    }
+  });
+  const filename = parts.join('_');
   const win  = window.open('', '_blank');
-  win.document.write(`<!DOCTYPE html><html lang="el"><head><meta charset="UTF-8"><title>Βεβαίωση ΕΟΠΥΥ</title><style>
+  win.document.title = filename;
+  win.document.write(`<!DOCTYPE html><html lang="el"><head><meta charset="UTF-8"><title>${filename}</title><style>
 @page{size:A4 portrait;margin:12mm 14mm}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Times New Roman',serif;font-size:13px;line-height:1.45}
@@ -985,6 +1068,7 @@ function openClosedDays() {
 }
 function closeClosedDays() {
   document.getElementById('modal-closed').classList.remove('open');
+  updateClosedBtn();
   onPeriodChange();
 }
 
@@ -996,6 +1080,7 @@ function addClosedRange() {
   ranges.push({ from, to });
   setClosedRanges(ranges);
   renderClosedList();
+  updateClosedBtn();
   document.getElementById('closed-from').value = '';
   document.getElementById('closed-to').value = '';
 }
@@ -1005,12 +1090,30 @@ function removeClosedRange(idx) {
   ranges.splice(idx, 1);
   setClosedRanges(ranges);
   renderClosedList();
+  updateClosedBtn();
 }
 
 function clearAllClosed() {
   if (!confirm('Διαγραφή όλων των κλειστών ημερών;')) return;
   setClosedRanges([]);
   renderClosedList();
+  updateClosedBtn();
+}
+
+function updateClosedBtn() {
+  const btn = document.querySelector('.btn-closed');
+  if (!btn) return;
+  const ranges = getClosedRanges();
+  const hasActive = ranges.length > 0;
+  // Check if closed days feature is enabled
+  const enabled = localStorage.getItem('symp_closed_enabled') !== 'false';
+  if (hasActive && enabled) {
+    btn.classList.add('active');
+    btn.textContent = '📅 Κλειστές Ημέρες Κέντρου ✅';
+  } else {
+    btn.classList.remove('active');
+    btn.textContent = '📅 Κλειστές Ημέρες Κέντρου';
+  }
 }
 
 function renderClosedList() {
@@ -1043,6 +1146,7 @@ function checkPwd() {
 }
 
 refreshSel();
+updateClosedBtn();
 </script>
 </body>
 </html>
