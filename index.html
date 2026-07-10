@@ -1035,6 +1035,10 @@ function clearAll() {
   document.querySelectorAll('input[name="fylo"]')[0].checked = true;
   document.querySelectorAll('input[name="kentro"]')[0].checked = true;
   document.querySelectorAll('.tfields').forEach(f => f.classList.remove('active'));
+  // Reset all dropdowns to empty
+  ['logo','ergo','psyho','eidiki'].forEach(t => {
+    document.getElementById('sel-'+t).value = '';
+  });
   document.getElementById('doc').innerHTML = '<div class="empty">👆 Συμπλήρωσε τα στοιχεία αριστερά<br>και πάτα <strong>"Δημιουργία Βεβαίωσης"</strong></div>';
 }
 
