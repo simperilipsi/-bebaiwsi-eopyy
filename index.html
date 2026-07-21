@@ -164,10 +164,10 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
     <div class="fsec">
       <h3>Χρονικό Διάστημα & Έκδοση</h3>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px">
-        <div class="fg"><label>Από</label><input type="date" id="pFrom" onchange="onPeriodChange()"></div>
-        <div class="fg"><label>Έως</label><input type="date" id="pTo" onchange="onPeriodToChange()"></div>
+        <div class="fg"><label>Από</label><input type="date" id="pFrom" oninput="blockBadYear(this)" onchange="onPeriodChange()"></div>
+        <div class="fg"><label>Έως</label><input type="date" id="pTo" oninput="blockBadYear(this)" onchange="onPeriodToChange()"></div>
       </div>
-      <div class="fg"><label>Ημερομηνία Έκδοσης</label><input type="date" id="issDate"></div>
+      <div class="fg"><label>Ημερομηνία Έκδοσης</label><input type="date" id="issDate" oninput="blockBadYear(this)"></div>
     </div>
     <div class="fsec">
       <h3>Θεραπείες</h3>
@@ -178,7 +178,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
           <div class="fg"><label>Ονοματεπώνυμο</label><input type="text" id="logo-n" oninput="this.value=this.value.toUpperCase()"></div>
           <div class="fg"><label>Αρ. άδειας</label><input type="text" id="logo-lic"></div>
           <div class="fg"><label>Αρμόδια αρχή</label><input type="text" id="logo-auth"></div>
-          <div class="fg"><label>Ημ/νία άδειας</label><input type="date" id="logo-ldate"></div>
+          <div class="fg"><label>Ημ/νία άδειας</label><input type="date" id="logo-ldate" oninput="blockBadYear(this)"></div>
           <div style="display:flex;gap:5px;margin-bottom:8px;">
             <button class="btn-xs btn-save" onclick="saveCustomT('logo')">💾 Αποθήκευση</button>
             <button class="btn-xs btn-edit" onclick="editCustomT('logo')">✏️ Επεξεργασία</button>
@@ -186,7 +186,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
           </div>
           <div class="fg"><label>Συνεδρίες</label>
             <select id="logo-sess" onchange="calcSessions('logo')">
-              <option value="4">4</option><option value="6">6</option><option value="8" selected>8</option><option value="10">10</option><option value="12">12</option>
+              <option value="2">2</option><option value="4">4</option><option value="6">6</option><option value="8" selected>8</option><option value="10">10</option><option value="12">12</option>
             </select>
           </div>
           <div class="sessions-info" id="info-logo">Βάλε διάστημα για αυτόματο υπολογισμό</div>
@@ -199,7 +199,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
           <div class="fg"><label>Ονοματεπώνυμο</label><input type="text" id="ergo-n" oninput="this.value=this.value.toUpperCase()"></div>
           <div class="fg"><label>Αρ. άδειας</label><input type="text" id="ergo-lic"></div>
           <div class="fg"><label>Αρμόδια αρχή</label><input type="text" id="ergo-auth"></div>
-          <div class="fg"><label>Ημ/νία άδειας</label><input type="date" id="ergo-ldate"></div>
+          <div class="fg"><label>Ημ/νία άδειας</label><input type="date" id="ergo-ldate" oninput="blockBadYear(this)"></div>
           <div style="display:flex;gap:5px;margin-bottom:8px;">
             <button class="btn-xs btn-save" onclick="saveCustomT('ergo')">💾 Αποθήκευση</button>
             <button class="btn-xs btn-edit" onclick="editCustomT('ergo')">✏️ Επεξεργασία</button>
@@ -207,7 +207,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
           </div>
           <div class="fg"><label>Συνεδρίες</label>
             <select id="ergo-sess" onchange="calcSessions('ergo')">
-              <option value="4">4</option><option value="6">6</option><option value="8" selected>8</option><option value="10">10</option><option value="12">12</option>
+              <option value="2">2</option><option value="4">4</option><option value="6">6</option><option value="8" selected>8</option><option value="10">10</option><option value="12">12</option>
             </select>
           </div>
           <div class="sessions-info" id="info-ergo">Βάλε διάστημα για αυτόματο υπολογισμό</div>
@@ -220,7 +220,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
           <div class="fg"><label>Ονοματεπώνυμο</label><input type="text" id="psyho-n" oninput="this.value=this.value.toUpperCase()"></div>
           <div class="fg"><label>Αρ. άδειας</label><input type="text" id="psyho-lic"></div>
           <div class="fg"><label>Αρμόδια αρχή</label><input type="text" id="psyho-auth"></div>
-          <div class="fg"><label>Ημ/νία άδειας</label><input type="date" id="psyho-ldate"></div>
+          <div class="fg"><label>Ημ/νία άδειας</label><input type="date" id="psyho-ldate" oninput="blockBadYear(this)"></div>
           <div style="display:flex;gap:5px;margin-bottom:8px;">
             <button class="btn-xs btn-save" onclick="saveCustomT('psyho')">💾 Αποθήκευση</button>
             <button class="btn-xs btn-edit" onclick="editCustomT('psyho')">✏️ Επεξεργασία</button>
@@ -228,7 +228,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
           </div>
           <div class="fg"><label>Συνεδρίες</label>
             <select id="psyho-sess" onchange="calcSessions('psyho')">
-              <option value="4">4</option><option value="6">6</option><option value="8" selected>8</option><option value="10">10</option><option value="12">12</option>
+              <option value="2">2</option><option value="4">4</option><option value="6">6</option><option value="8" selected>8</option><option value="10">10</option><option value="12">12</option>
             </select>
           </div>
           <div class="sessions-info" id="info-psyho">Βάλε διάστημα για αυτόματο υπολογισμό</div>
@@ -241,7 +241,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
           <div class="fg"><label>Ονοματεπώνυμο</label><input type="text" id="eidiki-n" oninput="this.value=this.value.toUpperCase()"></div>
           <div class="fg"><label>Αρ. άδειας</label><input type="text" id="eidiki-lic"></div>
           <div class="fg"><label>Αρμόδια αρχή</label><input type="text" id="eidiki-auth"></div>
-          <div class="fg"><label>Ημ/νία άδειας</label><input type="date" id="eidiki-ldate"></div>
+          <div class="fg"><label>Ημ/νία άδειας</label><input type="date" id="eidiki-ldate" oninput="blockBadYear(this)"></div>
           <div style="display:flex;gap:5px;margin-bottom:8px;">
             <button class="btn-xs btn-save" onclick="saveCustomT('eidiki')">💾 Αποθήκευση</button>
             <button class="btn-xs btn-edit" onclick="editCustomT('eidiki')">✏️ Επεξεργασία</button>
@@ -249,7 +249,7 @@ body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 16px; font-
           </div>
           <div class="fg"><label>Συνεδρίες</label>
             <select id="eidiki-sess" onchange="calcSessions('eidiki')">
-              <option value="4">4</option><option value="6">6</option><option value="8" selected>8</option><option value="10">10</option><option value="12">12</option>
+              <option value="2">2</option><option value="4">4</option><option value="6">6</option><option value="8" selected>8</option><option value="10">10</option><option value="12">12</option>
             </select>
           </div>
           <div class="sessions-info" id="info-eidiki">Βάλε διάστημα για αυτόματο υπολογισμό</div>
@@ -945,7 +945,7 @@ function getDocHTML(iss) {
         <div class="doc-date">Ημερομηνία: ${iss}</div>
         <div class="doc-rep">
           Η Νόμιμος Εκπρόσωπος του Κέντρου<br>Τσιάτσιου Σταματία-Παρασκευή<br>
-          <img src="${getKentroImg()}" alt="σφραγίδα κέντρου" style="max-height:100px;max-width:190px;opacity:0.9;margin-top:4px;">
+          <img src="${getKentroImg()}" alt="σφραγίδα κέντρου" style="max-height:150px;max-width:280px;opacity:0.9;margin-top:4px;">
         </div>
       </div>
     </div>`;
@@ -957,6 +957,34 @@ function generate() {
 }
 
 function openPDF() {
+  // Date validation
+  const allDates = document.querySelectorAll('input[type=date], input.date-input');
+  for (const inp of allDates) {
+    const val = inp.value.trim();
+    if (!val) continue;
+    const parts2 = val.split('-');
+    if (parts2.length === 3 && parts2[0].length !== 4) {
+      alert('⚠️ Λάθος χρονολογία: ' + val + '\nΤο έτος πρέπει να έχει ακριβώς 4 ψηφία!');
+      inp.focus();
+      return;
+    }
+  }
+  // Check date range max 31 days
+  const fromInp = document.getElementById('fromDate') || document.getElementById('dateFrom') || document.querySelector('[id*="from"],[id*="From"],[id*="start"]');
+  const toInp   = document.getElementById('toDate')   || document.getElementById('dateTo')   || document.querySelector('[id*="to"],[id*="To"],[id*="end"]');
+  if (fromInp && toInp && fromInp.value && toInp.value) {
+    const d1 = new Date(fromInp.value);
+    const d2 = new Date(toInp.value);
+    const diff = Math.ceil((d2 - d1) / (1000*60*60*24));
+    if (diff > 31) {
+      alert('⚠️ Το διάστημα είναι ' + diff + ' μέρες!\nΔεν επιτρέπεται διάστημα μεγαλύτερο από 31 μέρες.');
+      return;
+    }
+    if (diff <= 0) {
+      alert('⚠️ Η ημερομηνία λήξης πρέπει να είναι μετά την έναρξη!');
+      return;
+    }
+  }
   generate();
   const iss  = fmtGRstr(document.getElementById('issDate').value) || '__/__/____';
   const html = getDocHTML(iss);
@@ -964,7 +992,6 @@ function openPDF() {
   const fullName = document.getElementById('cName').value.trim();
   const lastName = fullName ? fullName.split(' ')[0] : '';
   const parts = ['ΒΕΒΑΙΩΣΗ'];
-  if (lastName) parts.push(lastName);
   const therapies = [
     {id:'logo', label:'ΛΟΓΟ'}, {id:'ergo', label:'ΕΡΓΟ'},
     {id:'psyho', label:'ΨΥΧΟ'}, {id:'eidiki', label:'ΕΙΔΙΚΗ'}
@@ -976,7 +1003,8 @@ function openPDF() {
       parts.push(n + label);
     }
   });
-  const filename = parts.join('_');
+  if (lastName) parts.push(lastName);
+  const filename = parts.join('');
   const win  = window.open('', '_blank');
   win.document.title = filename;
   win.document.write(`<!DOCTYPE html><html lang="el"><head><meta charset="UTF-8"><title>${filename}</title><style>
@@ -1027,6 +1055,56 @@ body{font-family:'Times New Roman',serif;font-size:13px;line-height:1.45}
 </style></head><body>${html}</body></html>`);
   win.document.close();
   setTimeout(() => win.print(), 600);
+}
+
+
+function validateYear(input) {
+  const val = input.value;
+  if (!val) { input.style.border = ''; input.style.backgroundColor = ''; return; }
+  // input[type=date] value is always YYYY-MM-DD format
+  const year = val.split('-')[0];
+  if (year && year.length > 4) {
+    input.style.border = '2px solid #c62828';
+    input.style.backgroundColor = '#ffebee';
+    input.title = '⚠️ Λάθος έτος! Έχεις γράψει ' + year + ' — πρέπει να είναι 4 ψηφία.';
+  } else {
+    input.style.border = '';
+    input.style.backgroundColor = '';
+    input.title = '';
+  }
+}
+
+
+
+function getDateVal(prefix) {
+  const dd   = document.getElementById(prefix + '-dd')?.value.padStart(2,'0') || '';
+  const mm   = document.getElementById(prefix + '-mm')?.value.padStart(2,'0') || '';
+  const yyyy = document.getElementById(prefix + '-yyyy')?.value || '';
+  if (dd && mm && yyyy && yyyy.length === 4) {
+    // Update hidden field
+    const hidden = document.getElementById(prefix);
+    if (hidden) hidden.value = yyyy + '-' + mm + '-' + dd;
+    return dd + '/' + mm + '/' + yyyy;
+  }
+  return '';
+}
+
+function assembleDates() {
+  getDateVal('pFrom');
+  getDateVal('pTo');
+  getDateVal('issDate');
+}
+
+function blockBadYear(input) {
+  const val = input.value;
+  if (!val) return;
+  const parts = val.split('-');
+  if (parts[0] && parts[0].length > 4) {
+    // Truncate to 4 digits
+    parts[0] = parts[0].slice(0, 4);
+    input.value = parts.join('-');
+  }
+  validateYear(input);
 }
 
 function clearAll() {
